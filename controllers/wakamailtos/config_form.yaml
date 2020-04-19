@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Waka Mailto
+
+# Model Form Field configuration
+form: $/waka/mailtoer/models/wakamailto/fields.yaml
+
+# Model Class name
+modelClass: Waka\Mailtoer\Models\WakaMailto
+
+# Default redirect location
+defaultRedirect: waka/mailtoer/wakamailtos
+
+# Create page
+create:
+    title: Create Waka Mailto
+    redirect: waka/mailtoer/wakamailtos/update/:id
+    redirectClose: waka/mailtoer/wakamailtos
+
+# Update page
+update:
+    title: Edit Waka Mailto
+    redirect: waka/mailtoer/wakamailtos
+    redirectClose: waka/mailtoer/wakamailtos
+
+# Preview page
+preview:
+    title: Preview Waka Mailto

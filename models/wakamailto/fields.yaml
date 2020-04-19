@@ -1,0 +1,79 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: waka.mailtoer::lang.wakamailto.name
+        span: auto
+    # slug:
+    #      label: waka.mailtoer::lang.wakamailto.slug   
+    #      preset: name
+    #      span: auto
+    # subject:
+    #     label: waka.mailtoer::lang.wakamailto.subject
+    #     span: auto  
+    data_source@create:
+        label: waka.mailtoer::lang.wakamailto.data_source
+        placeholder: waka.mailtoer::lang.wakamailto.data_source_placeholder
+        type: relation
+        select: name
+        span: auto 
+    data_source@update:
+        label: waka.mailtoer::lang.wakamailto.data_source
+        placeholder: waka.mailtoer::lang.wakamailto.data_source_placeholder
+        type: relation
+        select: name
+        span: auto
+        disabled: true
+    template:
+        label: waka.mailtoer::lang.wakamailto.template
+        type: codeeditor
+        language: html
+    model_functions@update:
+            label: Créer des collections à partir des fonctions du modèle
+            type: functionslist
+            span: auto
+    images@update:
+            label: Injecter des images à partir du modèle
+            type: imageslist
+            span: auto
+    scopes@update:
+        label: waka.worder::lang.document.scopes.title
+        type: nestedform
+        form:
+            fields:
+                mode: 
+                    type: radio
+                    default: [all]
+                    cssClass: 'inline-options'
+                    options:
+                        all: Toutes les conditions doivent être vrai
+                        one: Une seul condition doit être vrai
+                conditions:
+                    label: waka.worder::lang.document.scopes.conditions
+                    type: repeater
+                    prompt: waka.worder::lang.document.scopes.prompt
+                    span: full
+                    form:
+                        fields:
+                            self: 
+                                label: waka.worder::lang.document.scopes.self
+                                type: checkbox
+                                span: full
+                                default: true
+                            target:
+                                label: waka.worder::lang.document.scopes.target
+                                commentAbove: waka.worder::lang.document.scopes.target_com
+                                span: auto
+                                trigger:
+                                    action: disable
+                                    field: self
+                                    condition: checked
+                            ids:
+                                label: waka.worder::lang.document.scopes.id
+                                type: taglist
+                                mode: array
+                                commentAbove: waka.worder::lang.document.scopes.id_com
+                                span: auto

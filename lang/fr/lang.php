@@ -9,7 +9,7 @@ return [
     ],
     'wakamailto' => [
         'name' => 'Nom',
-        'template' => "Template HTML compatible bootstrap 3.4.1",
+        'template' => "Texte brut",
         'path' => 'Fichier source',
         'analyze' => "Log d'analyse des codes du fichier source",
         'has_sectors_perso' => 'Personaliser le contenu en fonction du secteur',

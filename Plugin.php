@@ -116,7 +116,7 @@ class Plugin extends PluginBase
     {
         return [
             'wakamailtos' => [
-                'label' => \Lang::get('waka.mailtoer::lang.menu.wakapdfs'),
+                'label' => \Lang::get('waka.mailtoer::lang.menu.wakamailtos'),
                 'description' => \Lang::get('waka.mailtoer::lang.menu.wakamailtos_description'),
                 'category' => \Lang::get('waka.mailtoer::lang.menu.settings_category'),
                 'icon' => 'icon-file-pdf-o',

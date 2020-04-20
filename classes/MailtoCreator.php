@@ -41,41 +41,24 @@ class MailtoCreator
         return $this->wakamailto->data_source->modelClass::find($this->dataSourceId);
     }
 
-    public function renderMailto($dataSourceId, $type = 'inline')
+    public function createMailto($dataSourceId)
     {
         $this->prepareCreatorVars($dataSourceId);
 
-        $data = [];
-        //$data['collections'] = $this->wakamailto->data_source->getFunctionsCollections($dataSourceId, $this->wakamailto);
-        $data = [];
-        $data['model'] = $this->wakamailto->data_source->getValues($dataSourceId);
-        $data['images'] = $this->wakamailto->data_source->getPicturesUrl($dataSourceId, $this->wakamailto->images);
-        $data['collections'] = $this->wakamailto->data_source->getFunctionsCollections($dataSourceId, $this->wakamailto->model_functions);
-        $data['settings'] = null;
+        $model = [];
+        $model = $this->wakamailto->data_source->getValues($dataSourceId);
+        $model['IMG'] = $this->wakamailto->data_source->getPicturesUrl($dataSourceId, $this->wakamailto->images);
+        $model['FNC'] = $this->wakamailto->data_source->getFunctionsCollections($dataSourceId, $this->wakamailto->model_functions);
 
-        trace_log(compact('data'));
+        trace_log(compact('model'));
 
-        $html = \Twig::parse($this->wakamailto->template, compact('data'));
+        $html = \Twig::parse($this->wakamailto->template, compact('model'));
+        $body = rawurlencode($html);
+        $subject = rawurlencode($this->wakamailto->subject);
+        $to = $this->wakamailto->data_source->getContact('ask_to', $dataSourceId)[0];
+        $url = "mailto:$to?CC=$to&Subject=$subject&Body=$body";
 
-        // if ($type == "html") {
-        //     return $html;
-        // }
-        $mailto = \PDF::loadHtml($html);
-        $mailto->setOption('margin-top', 10);
-        $mailto->setOption('margin-right', 10);
-        $mailto->setOption('margin-bottom', 10);
-        $mailto->setOption('margin-left', 10);
-        $mailto->setOption('viewport-size', '1280x1024');
-        // $mailto->setOption('enable-javascript', true);
-        // $mailto->setOption('javascript-delay', 5000);
-        $mailto->setOption('enable-smart-shrinking', true);
-        // $mailto->setOption('no-stop-slow-scripts', true);
-
-        if (!$type || $type == "download") {
-            return $mailto->download('test2.mailto');
-        } else {
-            return $mailto->inline('test2.mailto');
-        }
+        return $url;
     }
 
     public function getDotedValues()

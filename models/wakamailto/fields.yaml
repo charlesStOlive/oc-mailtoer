@@ -27,10 +27,12 @@ fields:
         select: name
         span: auto
         disabled: true
+    subject:
+        label: waka.mailer::lang.wakamail.subject
+        span: full  
     template:
         label: waka.mailtoer::lang.wakamailto.template
-        type: codeeditor
-        language: html
+        type: textarea
     model_functions@update:
             label: Créer des collections à partir des fonctions du modèle
             type: functionslist

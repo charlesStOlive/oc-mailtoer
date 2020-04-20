@@ -13,16 +13,14 @@ class CreateWakaMailtosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('template')->nullable();
-
+            $table->string('subject');
             $table->integer('data_source_id')->unsigned()->nullable();
             $table->text('scopes')->nullable();
             $table->text('model_functions')->nullable();
             $table->text('images')->nullable();
-
             $table->integer('sort_order')->default(0);
 
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

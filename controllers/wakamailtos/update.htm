@@ -26,18 +26,9 @@
             <u>S</u>ave
         </button>
         <div class="btn-group">
-            <!--<button href="javascript:;" class="btn btn-default oc-icon-chrome"
-                data-request-data="redirect:0, wakaMailtoId:<?=$this->params[0]?>, type:'inline'"
-                data-request="onLoadMailtoTest">
-                <?= e(trans('waka.mailtoer::lang.button.exemple_inline')) ?> </button>-->
             <a class="btn btn-default oc-icon-chrome" <?php $param = $this->params[0] ?>
-                href="<?= Backend::url("waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=$param&type=html" )?>"
-                target="_blank">
-                <?=e(trans('waka.mailtoer::lang.button.exemple_inline')) ?> </a>
-            <button type="button" class="btn btn-default oc-icon-cloud-download"
-                data-request-data="redirect:0, wakaMailtoId:<?=$this->params[0]?>,  type:'download'"
-                data-request="onLoadMailtoTest">
-                <?= e(trans('waka.mailtoer::lang.button.exemple_download')) ?> </button>
+                href="<?= Backend::url("waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=$param" )?>">
+                <?=e(trans('waka.mailtoer::lang.button.test')) ?> </a>
 
         </div>
         <button type="button" data-request="onSave" data-request-data="close:1" data-hotkey="ctrl+enter, cmd+enter"

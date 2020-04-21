@@ -8,6 +8,10 @@ return [
         'settings_category' => 'Wakaari Modèle',
     ],
     'wakamailto' => [
+        'tab_info' => "Info",
+        'tab_edit' => "Edit",
+        'tab_scopes' => "Limites",
+        'tab_fnc' => "Images et fonctions",
         'name' => 'Nom',
         'template' => "Texte brut",
         'path' => 'Fichier source',

@@ -45,14 +45,19 @@ class MailtoCreator
     {
         $this->prepareCreatorVars($dataSourceId);
 
-        $model = [];
-        $model = $this->wakamailto->data_source->getValues($dataSourceId);
-        $model['IMG'] = $this->wakamailto->data_source->getPicturesUrl($dataSourceId, $this->wakamailto->images);
-        $model['FNC'] = $this->wakamailto->data_source->getFunctionsCollections($dataSourceId, $this->wakamailto->model_functions);
+        $varName = strtolower($this->wakamailto->data_source->model);
 
-        trace_log(compact('model'));
+        $doted = $this->wakamailto->data_source->getValues($dataSourceId);
+        $img = $this->wakamailto->data_source->getPicturesUrl($dataSourceId, $this->wakamailto->images);
+        $fnc = $this->wakamailto->data_source->getFunctionsCollections($dataSourceId, $this->wakamailto->model_functions);
 
-        $html = \Twig::parse($this->wakamailto->template, compact('model'));
+        $model = [
+            $varName => $doted,
+            'IMG' => $img,
+            'FNC' => $fnc,
+        ];
+
+        $html = \Twig::parse($this->wakamailto->template, $model);
         $body = rawurlencode($html);
         $subject = rawurlencode($this->wakamailto->subject);
         $to = $this->wakamailto->data_source->getContact('ask_to', $dataSourceId)[0];

@@ -93,15 +93,15 @@ class Plugin extends PluginBase
     {
         return [
             'waka.mailtoer.admin.super' => [
-                'tab' => 'Waka',
-                'label' => 'Administrateur de Mailtoer',
+                'tab' => 'Waka - Mailtoer',
+                'label' => 'Super Administrateur de Mailtoer',
             ],
-            'waka.mailtoer.admin' => [
-                'tab' => 'Waka',
+            'waka.mailtoer.admin.base' => [
+                'tab' => 'Waka - Mailtoer',
                 'label' => 'Administrateur de Mailtoer',
             ],
             'waka.mailtoer.user' => [
-                'tab' => 'Waka',
+                'tab' => 'Waka - Mailtoer',
                 'label' => 'Utilisateur de Mailtoer',
             ],
         ];
@@ -121,7 +121,7 @@ class Plugin extends PluginBase
                 'category' => \Lang::get('waka.mailtoer::lang.menu.settings_category'),
                 'icon' => 'icon-file-pdf-o',
                 'url' => \Backend::url('waka/mailtoer/wakamailtos'),
-                'permissions' => ['waka.mailtoer.admin'],
+                'permissions' => ['waka.mailtoer.admin.*'],
                 'order' => 1,
             ],
         ];

@@ -1,0 +1,14 @@
+<div class="modal-body">
+    <div class="form-group  textarea-field span-full">
+        <textarea class="form-control field-textarea size-large"><?=$textobj['text']?></textarea>
+    </div>
+</div>
+<div class="modal-footer m-t">
+    <a href="mailto:<?=$textobj['to']?>$to?Subject=<?=$textobj['subject']?>&Body=<?=$textobj['body']?>"
+        class="btn btn-primary">
+        Envoyer le mailto
+    </a>
+    <button type="button" class="btn btn-default" data-dismiss="popup">
+        Terminer
+    </button>
+</div>

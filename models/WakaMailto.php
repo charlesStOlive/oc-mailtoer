@@ -70,6 +70,7 @@ class WakaMailto extends Model
     public $morphOne = [];
     public $morphMany = [
         'informs' => ['Waka\Informer\Models\Inform', 'name' => 'informeable'],
+        'sends' => ['Waka\Utils\Models\SourceLog', 'name' => 'sendeable'],
     ];
     public $attachOne = [];
     public $attachMany = [];

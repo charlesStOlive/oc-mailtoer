@@ -3,8 +3,8 @@
 return [
     'menu' => [
         'title' => 'Contenu',
-        'wakamailtos' => 'Mailtos',
-        'wakamailtos_description' => 'Gestion des modèles mailtos',
+        'wakamailtos' => 'Texts & Mailtos',
+        'wakamailtos_description' => 'Gestion des modèles texts & mailtos',
         'settings_category' => 'Wakaari Modèle',
     ],
     'wakamailto' => [
@@ -21,18 +21,7 @@ return [
         'data_source_placeholder' => 'Choisissez une source de données',
         'show' => 'Voir un exemple',
         'check' => 'Vérifier',
-        'scopes' => [
-            'title' => "limiter le mailto pour une cible",
-            'prompt' => 'Ajouter une nouvelle limites',
-            'com' => "Vous pouvez décider de n'afficher ce modèle que sous certains critères Attention seul les valeurs id sont accepté",
-            'self' => "Fonction de restriction liée à l'id de ce modèle ?",
-            'target' => 'Relation de la cible',
-            'target_com' => "Ecrire le nom de la relation les relations parentes ne sont pas disponible",
-            'id' => 'ID recherché',
-            'id_com' => "Vous pouvez ajouter plusieurs ID",
-            'conditions' => "Conditions",
-        ],
-        'subject' => "Sujet de l'email",
+        'subject' => "Sujet de l'email si mailto",
         'slug' => "Slug ou code",
         'addFunction' => 'Ajouter une fonction/collection',
         'test' => "Tester",

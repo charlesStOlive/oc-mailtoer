@@ -47,6 +47,14 @@ class MailtoCreator
 
         $varName = strtolower($this->wakamailto->data_source->model);
 
+        // Log du mailto
+        $uniqueKey = uniqid() . str_Random(8);
+        $log = new \Waka\Utils\Models\SourceLog();
+        $log->key = $uniqueKey;
+        $log->send_targeteable_id = $dataSourceId;
+        $log->send_targeteable_type = $this->wakamailto->data_source->modelClass;
+        $test = $this->wakamailto->sends()->add($log);
+
         $doted = $this->wakamailto->data_source->getValues($dataSourceId);
         $img = $this->wakamailto->data_source->getPicturesUrl($dataSourceId, $this->wakamailto->images);
         $fnc = $this->wakamailto->data_source->getFunctionsCollections($dataSourceId, $this->wakamailto->model_functions);
@@ -55,15 +63,22 @@ class MailtoCreator
             $varName => $doted,
             'IMG' => $img,
             'FNC' => $fnc,
+            'key' => $uniqueKey,
         ];
 
         $html = \Twig::parse($this->wakamailto->template, $model);
         $body = rawurlencode($html);
         $subject = rawurlencode($this->wakamailto->subject);
         $to = $this->wakamailto->data_source->getContact('ask_to', $dataSourceId)[0];
-        $url = "mailto:$to?CC=$to&Subject=$subject&Body=$body";
+        trace_log($to);
+        $obj = [
+            'to' => $to,
+            'subject' => $subject,
+            'body' => $body,
+            'text' => $html,
+        ];
 
-        return $url;
+        return $obj;
     }
 
     public function getDotedValues()

@@ -1,7 +1,6 @@
 <?php namespace Waka\Mailtoer\Behaviors;
 
 use Backend\Classes\ControllerBehavior;
-use Redirect;
 use Waka\Mailtoer\Classes\MailtoCreator;
 use Waka\Mailtoer\Models\WakaMailto;
 
@@ -120,7 +119,8 @@ class MailtoBehavior extends ControllerBehavior
         $wakaMailtoId = post('wakaMailtoId');
         $modelId = post('modelId');
 
-        return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&modelId=' . $modelId);
+        //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&modelId=' . $modelId);
+        return $this->makemailto($wakaMailtoId, $modelId);
 
     }
 
@@ -149,18 +149,25 @@ class MailtoBehavior extends ControllerBehavior
     {
         $type = post('type');
         $wakaMailtoId = post('wakaMailtoId');
-        return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&type=' . $type);
+        return $this->makemailto($wakaMailtoId, $modelId);
+        //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&type=' . $type);
     }
 
-    public function makemailto()
+    public function makemailto($wakaMailtoId, $modelId = null)
     {
-        $wakaMailtoId = post('wakaMailtoId');
-        $modelId = post('modelId');
+        // $wakaMailtoId = post('wakaMailtoId');
+        // $modelId = post('modelId');
 
         $mc = new MailtoCreator($wakaMailtoId);
-        $url = $mc->createMailto($modelId);
-        //trace_log($url);
-        return redirect::to($url);
+        $textobj = $mc->createMailto($modelId);
+        $this->vars['textobj'] = $textobj;
+        trace_log($textobj);
+        return [
+            '#mailtoContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_text.htm'),
+        ];
+
+        //$url = "mailto:$to?Subject=$subject&Body=$body";
+        //return redirect::to($url);
     }
 
     // public function createMailtoBehaviorWidget()

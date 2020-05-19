@@ -119,7 +119,7 @@ class Plugin extends PluginBase
                 'label' => \Lang::get('waka.mailtoer::lang.menu.wakamailtos'),
                 'description' => \Lang::get('waka.mailtoer::lang.menu.wakamailtos_description'),
                 'category' => \Lang::get('waka.mailtoer::lang.menu.settings_category'),
-                'icon' => 'icon-file-pdf-o',
+                'icon' => 'icon-pencil',
                 'url' => \Backend::url('waka/mailtoer/wakamailtos'),
                 'permissions' => ['waka.mailtoer.admin.*'],
                 'order' => 1,

@@ -130,7 +130,6 @@ class MailtoBehavior extends ControllerBehavior
     public function CheckValidation($inputs)
     {
         $rules = [
-            'modelId' => 'required',
             'wakaMailtoId' => 'required',
         ];
 
@@ -149,7 +148,9 @@ class MailtoBehavior extends ControllerBehavior
     {
         $type = post('type');
         $wakaMailtoId = post('wakaMailtoId');
-        return $this->makemailto($wakaMailtoId, $modelId);
+        $this->vars['wakaMailtoId'] = $wakaMailtoId;
+        //return $this->makemailto($wakaMailtoId);
+        return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
         //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&type=' . $type);
     }
 

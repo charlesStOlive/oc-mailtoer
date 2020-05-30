@@ -20,10 +20,10 @@
             <u>S</u>ave
         </button>
         <div class="btn-group">
-            <a class="btn btn-default oc-icon-chrome" <?php $param = $this->params[0] ?>
-                href="<?= Backend::url("waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=$param" )?>">
-                <?=e(trans('waka.mailtoer::lang.button.test')) ?> </a>
-
+            <button href="javascript:;" class="btn btn-default oc-icon-external-link "
+                data-request-data="redirect:0, wakaMailtoId:<?=$this->params[0]?>" data-control="popup"
+                data-handler="onLoadMailtoTest">
+                <?= e(trans('waka.mailer::lang.wakamail.test')) ?> </button>
         </div>
         <button type="button" data-request="onSave" data-request-data="close:1" data-hotkey="ctrl+enter, cmd+enter"
             data-load-indicator="Saving WakaMailto..." class="btn btn-default">

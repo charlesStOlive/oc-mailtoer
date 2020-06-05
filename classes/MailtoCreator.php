@@ -70,7 +70,7 @@ class MailtoCreator
         $body = rawurlencode($html);
         $subject = rawurlencode($this->wakamailto->subject);
         $to = $this->wakamailto->data_source->getContact('ask_to', $dataSourceId)[0];
-        trace_log($to);
+        //trace_log($to);
         $obj = [
             'to' => $to,
             'subject' => $subject,

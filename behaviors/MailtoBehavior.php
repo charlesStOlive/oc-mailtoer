@@ -169,7 +169,7 @@ class MailtoBehavior extends ControllerBehavior
         $mc = new MailtoCreator($wakaMailtoId);
         $textobj = $mc->createMailto($modelId);
         $this->vars['textobj'] = $textobj;
-        trace_log($textobj);
+        //trace_log($textobj);
         return [
             '#mailtoContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_text.htm'),
         ];

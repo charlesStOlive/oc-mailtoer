@@ -18,7 +18,7 @@ class MailtoCreator
 
     }
 
-    public function prepareCreatorVars($dataSourceId)
+    public function prepareCreatorVars($dataSourceId = null)
     {
         $this->dataSourceModel = $this->linkModelSource($dataSourceId);
         $this->dataSourceAdditionalParams = $this->dataSourceModel->hasRelationArray;
@@ -41,7 +41,7 @@ class MailtoCreator
         return $this->wakamailto->data_source->modelClass::find($this->dataSourceId);
     }
 
-    public function createMailto($dataSourceId)
+    public function createMailto($dataSourceId = null)
     {
         $this->prepareCreatorVars($dataSourceId);
 

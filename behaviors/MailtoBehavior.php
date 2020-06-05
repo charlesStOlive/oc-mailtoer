@@ -60,10 +60,14 @@ class MailtoBehavior extends ControllerBehavior
     /**
      * LOAD DES POPUPS
      */
-    public function onLoadMailtoBehaviorPopupForm()
+    public function onLoadMailtoBehaviorPopupForm($model = null, $modelId = null)
     {
-        $model = post('model');
-        $modelId = post('modelId');
+        if (!$model) {
+            $model = post('model');
+        }
+        if (!$modelId) {
+            $modelId = post('modelId');
+        }
 
         //$dataSource = $this->getDataSourceFromModel($model);
 
@@ -145,15 +149,17 @@ class MailtoBehavior extends ControllerBehavior
     /**
      * Cette fonction est utilisé lors du test depuis le controller wakamailto.
      */
-    public function onLoadMailtoTest()
-    {
-        $type = post('type');
-        $wakaMailtoId = post('wakaMailtoId');
-        $this->vars['wakaMailtoId'] = $wakaMailtoId;
-        //return $this->makemailto($wakaMailtoId);
-        return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
-        //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&type=' . $type);
-    }
+    // public function onLoadMailtoTest()
+    // {
+    //     $type = post('type');
+    //     $wakaMailtoId = post('wakaMailtoId');
+    //     $this->vars['wakaMailtoId'] = $wakaMailtoId;
+
+    //     return $this->onLoadMailtoBehaviorPopupForm()
+    //     //return $this->makemailto($wakaMailtoId);
+    //     return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
+    //     //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&type=' . $type);
+    // }
 
     public function makemailto($wakaMailtoId, $modelId = null)
     {

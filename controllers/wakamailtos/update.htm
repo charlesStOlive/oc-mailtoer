@@ -19,12 +19,6 @@
             data-load-indicator="Saving WakaMailto..." class="btn btn-primary">
             <u>S</u>ave
         </button>
-        <div class="btn-group">
-            <button href="javascript:;" class="btn btn-default oc-icon-external-link "
-                data-request-data="redirect:0, wakaMailtoId:<?=$this->params[0]?>" data-control="popup"
-                data-handler="onLoadMailtoTest">
-                <?= e(trans('waka.mailer::lang.wakamail.test')) ?> </button>
-        </div>
         <button type="button" data-request="onSave" data-request-data="close:1" data-hotkey="ctrl+enter, cmd+enter"
             data-load-indicator="Saving WakaMailto..." class="btn btn-default">
             Save and Close

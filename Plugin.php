@@ -53,7 +53,7 @@ class Plugin extends PluginBase
                 return \View::make('waka.mailtoer::publishMailto')->withData($data);;
             }
         });
-        \Event::listen('popup.actions.line1', function ($controller, $model, $id) {
+        \Event::listen('popup.actions.prod', function ($controller, $model, $id) {
             if (get_class($controller) == 'Waka\Mailtoer\Controllers\WakaMailto') {
                 return;
             }

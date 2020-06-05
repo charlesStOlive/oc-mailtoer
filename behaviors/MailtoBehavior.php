@@ -13,6 +13,7 @@ class MailtoBehavior extends ControllerBehavior
     public function __construct($controller)
     {
         parent::__construct($controller);
+        $controller->addJs('/plugins/waka/utils/widgets/sidebarattributes/assets/js/clipboard.min.js');
         //$this->mailtoBehaviorWidget = $this->createMailtoBehaviorWidget();
     }
 

@@ -1,14 +1,24 @@
 <div class="modal-body">
     <div class="form-group  textarea-field span-full">
-        <textarea class="form-control field-textarea size-large"><?=$textobj['text']?></textarea>
+        <textarea id="clipTxt" class="form-control field-textarea size-large"><?=$textobj['text']?></textarea>
     </div>
 </div>
 <div class="modal-footer m-t">
+    <button type="button" class="btn btn-primary oc-icon-files-o" data-clipboard-target="#clipTxt">
+        Copier le
+        texte
+    </button>
     <a href="mailto:<?=$textobj['to']?>$to?Subject=<?=$textobj['subject']?>&Body=<?=$textobj['body']?>"
-        class="btn btn-primary">
-        Envoyer le mailto
+        class="btn btn-primary oc-icon-envelope-open-o ">
+        Ecrire dans boite email
     </a>
     <button type="button" class="btn btn-default" data-dismiss="popup">
         Terminer
     </button>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {  
+    var clipboard = new ClipboardJS('.btn');
+});
+</script>

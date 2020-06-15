@@ -57,59 +57,27 @@ class MailtoBehavior extends ControllerBehavior
         return $optionsList;
 
     }
-    /**
-     * LOAD DES POPUPS
-     */
-    public function onLoadMailtoBehaviorPopupForm($model = null, $modelId = null)
-    {
-        if (!$model) {
-            $model = post('model');
-        }
-        if (!$modelId) {
-            $modelId = post('modelId');
-        }
-
-        //$dataSource = $this->getDataSourceFromModel($model);
-
-        $options = $this->getPartialOptions($model, $modelId);
-
-        // //trace_log("avant contact");
-        // $contact = $dataSource->getContact('ask_to', $modelId);
-        // //trace_log($contact);
-        // $this->mailtoBehaviorWidget->getField('email')->options = $contact;
-
-        // $cc = $dataSource->getContact('ask_cc', $modelId);
-        // //trace_log($cc);
-        // $this->mailtoBehaviorWidget->getField('cc')->options = $cc;
-
-        // $this->vars['mailtoBehaviorWidget'] = $this->mailtoBehaviorWidget;
-        $this->vars['options'] = $options;
-        $this->vars['modelId'] = $modelId;
-        // $this->vars['dataSrcId'] = $dataSource->id;
-
-        return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
-    }
-    public function onLoadMailtoBehaviorContentForm()
+    public function getPostContent()
     {
         $model = post('model');
         $modelId = post('modelId');
 
-        //$dataSource = $this->getDataSourceFromModel($model);
-
         $options = $this->getPartialOptions($model, $modelId);
 
-        // $contact = $dataSource->getContact('ask_to', $modelId);
-
-        // $this->mailtoBehaviorWidget->getField('email')->options = $contact;
-
-        // $cc = $dataSource->getContact('ask_cc', $modelId);
-
-        // $this->mailtoBehaviorWidget->getField('cc')->options = $cc;
-
-        // $this->vars['mailtoBehaviorWidget'] = $this->mailtoBehaviorWidget;
         $this->vars['options'] = $options;
         $this->vars['modelId'] = $modelId;
-
+    }
+    /**
+     * LOAD DES POPUPS
+     */
+    public function onLoadMailtoBehaviorPopupForm()
+    {
+        $this->getPostContent();
+        return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
+    }
+    public function onLoadMailtoBehaviorContentForm()
+    {
+        $this->getPostContent();
         return [
             '#popupActionContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_content.htm'),
         ];

@@ -8,6 +8,7 @@ tabs:
         waka.mailtoer::lang.wakamailto.tab_edit: icon-pencil
         waka.mailtoer::lang.wakamailto.tab_scopes: icon-filter  
         waka.mailtoer::lang.wakamailto.tab_fnc: icon-address-card-o
+        waka.lp::lang.source_log.tab_lp: icon-file
     fields:
 
         name:

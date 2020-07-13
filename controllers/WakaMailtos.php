@@ -15,11 +15,14 @@ class WakaMailtos extends Controller
         'Waka.Informer.Behaviors.PopupInfo',
         'Waka.Mailtoer.Behaviors.MailtoBehavior',
         'Waka.Utils.Behaviors.DuplicateModel',
+        'waka.Utils.Behaviors.SideBarAttributesBehavior',
+
     ];
 
     public $formConfig = 'config_form.yaml';
     public $listConfig = 'config_list.yaml';
     public $duplicateConfig = 'config_duplicate.yaml';
+    public $sidebarInfoConfig = '$/waka/crsm/config/config_wakamailtos_attributes.yaml';
 
     public $sidebarAttributes;
 
@@ -30,15 +33,19 @@ class WakaMailtos extends Controller
         \BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Waka.Mailtoer', 'wakamailtos');
 
-        $this->sidebarAttributes = new \Waka\Utils\Widgets\SidebarAttributes($this);
-        $this->sidebarAttributes->alias = 'SideBarAttributes';
-        $this->sidebarAttributes->type = 'twig';
-        $this->sidebarAttributes->bindToController();
     }
     public function update($id)
     {
         $this->bodyClass = 'compact-container';
         return $this->asExtension('FormController')->update($id);
+    }
+
+    public function update_onSave($recordId = null)
+    {
+        $this->asExtension('FormController')->update_onSave($recordId);
+        return [
+            '#sidebar_attributes' => $this->attributesRender($this->params[0]),
+        ];
     }
 
 }

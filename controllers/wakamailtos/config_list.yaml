@@ -9,7 +9,7 @@ list: $/waka/mailtoer/models/wakamailto/columns.yaml
 modelClass: Waka\Mailtoer\Models\WakaMailto
 
 # List Title
-title: Manage Waka Mailtos
+title: Gérer txt & mailto
 
 # Link URL for each record
 recordUrl: waka/mailtoer/wakamailtos/update/:id

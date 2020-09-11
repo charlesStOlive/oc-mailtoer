@@ -1,3 +1,9 @@
-1.0.1: 
-- 'First version of Mailtoer'
-- create_waka_mailtos_table.php
+1.0.1:
+    - 'First version of Mailtoer'
+    - create_waka_mailtos_table.php
+1.0.2:
+    - 'ajout du champ is_scope'
+    - create_waka_mailtos_table_u102.php
+1.0.3:
+    - 'Nettoyage des aniens scopes'
+    - clean_scopes.php

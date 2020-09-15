@@ -9,14 +9,14 @@ class CreateWakaMailtosTableU102 extends Migration
     public function up()
     {
         Schema::table('waka_mailtoer_waka_mailtos', function (Blueprint $table) {
-            $table->text('scope_type')->nullable();
+            $table->text('is_scope')->nullable();
         });
     }
 
     public function down()
     {
         Schema::table('waka_mailtoer_waka_mailtos', function (Blueprint $table) {
-            $table->dropColumn('scope_type');
+            $table->dropColumn('is_scope');
         });
     }
 }

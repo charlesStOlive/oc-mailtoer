@@ -52,9 +52,11 @@ tabs:
                 tab: waka.mailtoer::lang.wakamailto.tab_fnc
         is_scope: 
             label: waka.utils::lang.scopes.is_scope
-            type: checkbox
+            type: switch
+            tab: waka.mailtoer::lang.wakamailto.tab_scopes
         scopes:
             type: scopeslist
+            tab: waka.mailtoer::lang.wakamailto.tab_scopes
             trigger:
                 action: hide
                 field: is_scope

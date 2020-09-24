@@ -118,11 +118,11 @@ class Plugin extends PluginBase
             'wakamailtos' => [
                 'label' => \Lang::get('waka.mailtoer::lang.menu.wakamailtos'),
                 'description' => \Lang::get('waka.mailtoer::lang.menu.wakamailtos_description'),
-                'category' => \Lang::get('waka.mailtoer::lang.menu.settings_category'),
+                'category' => \Lang::get('waka.utils::lang.menu.settings_category_model'),
                 'icon' => 'icon-pencil',
                 'url' => \Backend::url('waka/mailtoer/wakamailtos'),
                 'permissions' => ['waka.mailtoer.admin.*'],
-                'order' => 1,
+                'order' => 35,
             ],
         ];
     }

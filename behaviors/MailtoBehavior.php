@@ -3,6 +3,7 @@
 use Backend\Classes\ControllerBehavior;
 use Waka\Mailtoer\Classes\MailtoCreator;
 use Waka\Mailtoer\Models\WakaMailto;
+use Waka\Utils\Classes\DataSource;
 
 class MailtoBehavior extends ControllerBehavior
 {
@@ -21,48 +22,49 @@ class MailtoBehavior extends ControllerBehavior
      * METHODES
      */
 
-    public function getDataSourceClassName(String $model)
-    {
-        $modelClassDecouped = explode('\\', $model);
-        return array_pop($modelClassDecouped);
+    // public function getDataSourceClassName(String $model)
+    // {
+    //     $modelClassDecouped = explode('\\', $model);
+    //     return array_pop($modelClassDecouped);
 
-    }
+    // }
 
-    public function getDataSourceFromModel(String $model)
-    {
-        $modelClassName = $this->getDataSourceClassName($model);
-        //On recherche le data Source depuis le nom du model
-        return \Waka\Utils\Models\DataSource::where('model', '=', $modelClassName)->first();
-    }
+    // public function getDataSourceFromModel(String $model)
+    // {
+    //     $modelClassName = $this->getDataSourceClassName($model);
+    //     //On recherche le data Source depuis le nom du model
+    //     return \Waka\Utils\Models\DataSource::where('model', '=', $modelClassName)->first();
+    // }
 
-    public function getModel($model, $modelId)
-    {
-        $myModel = $model::find($modelId);
-        return $myModel;
-    }
+    // public function getModel($model, $modelId)
+    // {
+    //     $myModel = $model::find($modelId);
+    //     return $myModel;
+    // }
 
-    public function getPartialOptions($model, $modelId)
-    {
-        $modelClassName = $this->getDataSourceClassName($model);
+    // public function getPartialOptions($model, $modelId)
+    // {
+    //     $modelClassName = $this->getDataSourceClassName($model);
 
-        $options = wakaMailto::whereHas('data_source', function ($query) use ($modelClassName) {
-            $query->where('model', '=', $modelClassName);
-        });
+    //     $options = wakaMailto::whereHas('data_source', function ($query) use ($modelClassName) {
+    //         $query->where('model', '=', $modelClassName);
+    //     });
 
-        $optionsList = [];
+    //     $optionsList = [];
 
-        foreach ($options->get() as $option) {
-            $optionsList[$option->id] = $option->name;
-        }
-        return $optionsList;
+    //     foreach ($options->get() as $option) {
+    //         $optionsList[$option->id] = $option->name;
+    //     }
+    //     return $optionsList;
 
-    }
+    // }
     public function getPostContent()
     {
         $model = post('model');
         $modelId = post('modelId');
 
-        $options = $this->getPartialOptions($model, $modelId);
+        $ds = new DataSource($model, 'class');
+        $options = $ds->getPartialOptions($modelId, 'Waka\Mailtoer\Models\WakaMailto');
 
         $this->vars['options'] = $options;
         $this->vars['modelId'] = $modelId;

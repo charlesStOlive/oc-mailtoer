@@ -1,6 +1,7 @@
 <?php namespace Waka\Mailtoer\Classes;
 
 use Waka\Mailtoer\Models\WakaMailto;
+use Waka\Utils\Classes\DataSource;
 
 class MailtoCreator
 {
@@ -18,46 +19,47 @@ class MailtoCreator
 
     }
 
-    public function prepareCreatorVars($dataSourceId = null)
-    {
-        $this->dataSourceModel = $this->linkModelSource($dataSourceId);
-        $this->dataSourceAdditionalParams = $this->dataSourceModel->hasRelationArray;
-    }
-    public function setAdditionalParams($additionalParams)
-    {
-        if ($additionalParams) {
-            $this->additionalParams = $additionalParams;
-        }
-    }
-    private function linkModelSource($dataSourceId)
-    {
-        $this->dataSourceId = $dataSourceId;
-        // si vide on puise dans le test
-        if (!$this->dataSourceId) {
-            $this->dataSourceId = $this->wakamailto->data_source->test_id;
-        }
-        //on enregistre le modèle
-        //trace_log($this->wakamailto->data_source->modelClass);
-        return $this->wakamailto->data_source->modelClass::find($this->dataSourceId);
-    }
+    // public function prepareCreatorVars($dataSourceId = null)
+    // {
+    //     $this->dataSourceModel = $this->linkModelSource($dataSourceId);
+    //     $this->dataSourceAdditionalParams = $this->dataSourceModel->hasRelationArray;
+    // }
+    // public function setAdditionalParams($additionalParams)
+    // {
+    //     if ($additionalParams) {
+    //         $this->additionalParams = $additionalParams;
+    //     }
+    // }
+    // private function linkModelSource($dataSourceId)
+    // {
+    //     $this->dataSourceId = $dataSourceId;
+    //     // si vide on puise dans le test
+    //     if (!$this->dataSourceId) {
+    //         $this->dataSourceId = $this->wakamailto->data_source->test_id;
+    //     }
+    //     //on enregistre le modèle
+    //     //trace_log($this->wakamailto->data_source->modelClass);
+    //     return $this->wakamailto->data_source->modelClass::find($this->dataSourceId);
+    // }
 
-    public function createMailto($dataSourceId = null)
+    public function createMailto($modelId = null)
     {
-        $this->prepareCreatorVars($dataSourceId);
+        $modelId = $this->wakamailto->data_source_id;
+        $ds = new DataSource($modelId, 'id');
 
-        $varName = strtolower($this->wakamailto->data_source->model);
+        $varName = strtolower($ds->model);
 
         $logKey = null;
         if (class_exists('\Waka\Lp\Classes\LogKey')) {
             if ($this->wakamailto->use_key) {
-                $logKey = new \Waka\Lp\Classes\LogKey($dataSourceId, $this->wakamailto);
+                $logKey = new \Waka\Lp\Classes\LogKey($modelId, $this->wakamailto);
                 $logKey->add();
             }
         }
 
-        $doted = $this->wakamailto->data_source->getValues($dataSourceId);
-        $img = $this->wakamailto->data_source->getPicturesUrl($dataSourceId, $this->wakamailto->images);
-        $fnc = $this->wakamailto->data_source->getFunctionsCollections($dataSourceId, $this->wakamailto->model_functions);
+        $doted = $ds->getValues($modelId);
+        $img = $ds->getPicturesUrl($modelId, $this->wakamailto->images);
+        $fnc = $ds->getFunctionsCollections($modelId, $this->wakamailto->model_functions);
 
         $model = [
             $varName => $doted,
@@ -69,7 +71,7 @@ class MailtoCreator
         $html = \Twig::parse($this->wakamailto->template, $model);
         $body = rawurlencode($html);
         $subject = rawurlencode($this->wakamailto->subject);
-        $to = $this->wakamailto->data_source->getContact('ask_to', $dataSourceId)[0] ?? '';
+        $to = $ds->getContact('to', $modelId)[0] ?? '';
         //trace_log($to);
         $obj = [
             'to' => $to,
@@ -81,23 +83,23 @@ class MailtoCreator
         return $obj;
     }
 
-    public function getDotedValues()
-    {
-        $array = [];
-        if ($this->additionalParams) {
-            if (count($this->additionalParams)) {
-                $rel = $this->wakamailto->data_source->getDotedRelationValues($this->dataSourceId, $this->additionalParams);
-                //trace_log($rel);
-                $array = array_merge($array, $rel);
-                //trace_log($array);
-            }
-        }
+    // public function getDotedValues()
+    // {
+    //     $array = [];
+    //     if ($this->additionalParams) {
+    //         if (count($this->additionalParams)) {
+    //             $rel = $this->wakamailto->data_source->getDotedRelationValues($this->dataSourceId, $this->additionalParams);
+    //             //trace_log($rel);
+    //             $array = array_merge($array, $rel);
+    //             //trace_log($array);
+    //         }
+    //     }
 
-        $rel = $this->wakamailto->data_source->getDotedValues($this->dataSourceId);
-        //trace_log($rel);
-        $array = array_merge($array, $rel);
-        return $array;
+    //     $rel = $this->wakamailto->data_source->getDotedValues($this->dataSourceId);
+    //     //trace_log($rel);
+    //     $array = array_merge($array, $rel);
+    //     return $array;
 
-    }
+    // }
 
 }

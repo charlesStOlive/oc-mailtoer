@@ -27,7 +27,10 @@ class WakaMailto extends Model
     /**
      * @var array Validation rules for attributes
      */
-    public $rules = [];
+    public $rules = [
+        'data_source_id' => 'required',
+        'name' => 'required',
+    ];
 
     /**
      * @var array Attributes to be cast to native types

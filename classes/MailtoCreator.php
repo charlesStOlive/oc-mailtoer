@@ -58,8 +58,8 @@ class MailtoCreator
         }
 
         $doted = $ds->getValues($modelId);
-        $img = $ds->getPicturesUrl($modelId, $this->wakamailto->images);
-        $fnc = $ds->getFunctionsCollections($modelId, $this->wakamailto->model_functions);
+        $img = $ds->wimages->getPicturesUrl($this->wakamail->images);
+        $fnc = $ds->getFunctionsCollections($modelId, $this->wakamail->model_functions);
 
         $model = [
             $varName => $doted,

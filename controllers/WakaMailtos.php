@@ -22,7 +22,7 @@ class WakaMailtos extends Controller
     public $formConfig = 'config_form.yaml';
     public $listConfig = 'config_list.yaml';
     public $duplicateConfig = 'config_duplicate.yaml';
-    public $sidebarInfoConfig = '$/waka/crsm/config/config_wakamailtos_attributes.yaml';
+    public $sidebarAttributesConfig = 'config_attributes.yaml';
 
     public $sidebarAttributes;
 

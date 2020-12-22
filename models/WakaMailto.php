@@ -28,7 +28,7 @@ class WakaMailto extends Model
      * @var array Validation rules for attributes
      */
     public $rules = [
-        'data_source_id' => 'required',
+        'data_source' => 'required',
         'name' => 'required',
     ];
 

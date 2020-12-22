@@ -44,7 +44,7 @@ class MailtoCreator
 
     public function createMailto($modelId = null)
     {
-        $modelId = $this->wakamailto->data_source_id;
+        $modelId = $this->wakamailto->data_source;
         $ds = new DataSource($modelId, 'id');
 
         $varName = strtolower($ds->model);

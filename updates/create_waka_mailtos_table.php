@@ -14,7 +14,7 @@ class CreateWakaMailtosTable extends Migration
             $table->string('name');
             $table->text('template')->nullable();
             $table->string('subject');
-            $table->integer('data_source_id')->unsigned()->nullable();
+            $table->string('data_source')->nullable();
             $table->text('scopes')->nullable();
             $table->text('model_functions')->nullable();
             $table->text('images')->nullable();

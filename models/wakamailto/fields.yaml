@@ -21,13 +21,13 @@ tabs:
         # subject:
         #     label: waka.mailtoer::lang.wakamailto.subject
         #     span: auto  
-        data_source_id@create:
+        data_source@create:
             label: waka.utils::lang.datasource.title
             placeholder: waka.utils::lang.datasource.placeholder
             type: dropdown
             options: listDataSource
             span: auto   
-        data_source_id@update:
+        data_source@update:
             label: waka.utils::lang.datasource.title
             placeholder: waka.utils::lang.datasource.placeholder
             type: dropdown

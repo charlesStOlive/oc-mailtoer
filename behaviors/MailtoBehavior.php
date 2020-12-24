@@ -18,46 +18,6 @@ class MailtoBehavior extends ControllerBehavior
         //$this->mailtoBehaviorWidget = $this->createMailtoBehaviorWidget();
     }
 
-    /**
-     * METHODES
-     */
-
-    // public function getDataSourceClassName(String $model)
-    // {
-    //     $modelClassDecouped = explode('\\', $model);
-    //     return array_pop($modelClassDecouped);
-
-    // }
-
-    // public function getDataSourceFromModel(String $model)
-    // {
-    //     $modelClassName = $this->getDataSourceClassName($model);
-    //     //On recherche le data Source depuis le nom du model
-    //     return \Waka\Utils\Models\DataSource::where('model', '=', $modelClassName)->first();
-    // }
-
-    // public function getModel($model, $modelId)
-    // {
-    //     $myModel = $model::find($modelId);
-    //     return $myModel;
-    // }
-
-    // public function getPartialOptions($model, $modelId)
-    // {
-    //     $modelClassName = $this->getDataSourceClassName($model);
-
-    //     $options = wakaMailto::whereHas('data_source', function ($query) use ($modelClassName) {
-    //         $query->where('model', '=', $modelClassName);
-    //     });
-
-    //     $optionsList = [];
-
-    //     foreach ($options->get() as $option) {
-    //         $optionsList[$option->id] = $option->name;
-    //     }
-    //     return $optionsList;
-
-    // }
     public function getPostContent()
     {
         $model = post('model');

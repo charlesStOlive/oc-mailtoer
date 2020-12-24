@@ -44,8 +44,7 @@ class MailtoCreator
 
     public function createMailto($modelId = null)
     {
-        $modelId = $this->wakamailto->data_source;
-        $ds = new DataSource($modelId, 'id');
+        $ds = new DataSource($this->wakamailto->data_source);
 
         $varName = strtolower($ds->model);
 
@@ -58,8 +57,8 @@ class MailtoCreator
         }
 
         $doted = $ds->getValues($modelId);
-        $img = $ds->wimages->getPicturesUrl($this->wakamail->images);
-        $fnc = $ds->getFunctionsCollections($modelId, $this->wakamail->model_functions);
+        $img = $ds->wimages->getPicturesUrl($this->wakamailto->images);
+        $fnc = $ds->getFunctionsCollections($modelId, $this->wakamailto->model_functions);
 
         $model = [
             $varName => $doted,

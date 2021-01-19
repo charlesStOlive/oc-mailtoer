@@ -46,7 +46,7 @@ class MailtoCreator
     {
         $ds = new DataSource($this->wakamailto->data_source);
 
-        $varName = strtolower($ds->model);
+        $varName = strtolower($ds->name);
 
         $logKey = null;
         if (class_exists('\Waka\Lp\Classes\LogKey')) {
@@ -66,6 +66,8 @@ class MailtoCreator
             'FNC' => $fnc,
             'log' => $logKey ? $logKey->log : null,
         ];
+
+        trace_log($model);
 
         $html = \Twig::parse($this->wakamailto->template, $model);
         $body = rawurlencode($html);

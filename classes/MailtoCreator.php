@@ -67,7 +67,7 @@ class MailtoCreator
             'log' => $logKey ? $logKey->log : null,
         ];
 
-        trace_log($model);
+        //trace_log($model);
 
         $html = \Twig::parse($this->wakamailto->template, $model);
         $body = rawurlencode($html);

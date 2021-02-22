@@ -2,7 +2,6 @@
 
 use Backend\Classes\ControllerBehavior;
 use Waka\Mailtoer\Classes\MailtoCreator;
-use Waka\Mailtoer\Models\WakaMailto;
 use Waka\Utils\Classes\DataSource;
 
 class MailtoBehavior extends ControllerBehavior
@@ -76,47 +75,12 @@ class MailtoBehavior extends ControllerBehavior
             return false;
         }
     }
-    /**
-     * Cette fonction est utilisé lors du test depuis le controller wakamailto.
-     */
-    // public function onLoadMailtoTest()
-    // {
-    //     $type = post('type');
-    //     $wakaMailtoId = post('wakaMailtoId');
-    //     $this->vars['wakaMailtoId'] = $wakaMailtoId;
-
-    //     return $this->onLoadMailtoBehaviorPopupForm()
-    //     //return $this->makemailto($wakaMailtoId);
-    //     return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
-    //     //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&type=' . $type);
-    // }
 
     public function makemailto($wakaMailtoId, $modelId = null)
     {
-        // $wakaMailtoId = post('wakaMailtoId');
-        // $modelId = post('modelId');
-
-        $mc = new MailtoCreator($wakaMailtoId);
-        $textobj = $mc->createMailto($modelId);
-        $this->vars['textobj'] = $textobj;
-        //trace_log($textobj);
+        $this->vars['textobj'] = MailtoCreator::find($wakaMailtoId)->render($modelId);
         return [
             '#mailtoContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_text.htm'),
         ];
-
-        //$url = "mailto:$to?Subject=$subject&Body=$body";
-        //return redirect::to($url);
     }
-
-    // public function createMailtoBehaviorWidget()
-    // {
-
-    //     $config = $this->makeConfig('$/waka/mailtoer/models/wakamailto/fields_for_mailto.yaml');
-    //     $config->alias = 'mailtoBehaviorformWidget';
-    //     $config->arrayName = 'mailtoBehavior_array';
-    //     $config->model = new WakaMailto();
-    //     $widget = $this->makeWidget('Backend\Widgets\Form', $config);
-    //     $widget->bindToController();
-    //     return $widget;
-    // }
 }

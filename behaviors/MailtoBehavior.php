@@ -19,10 +19,10 @@ class MailtoBehavior extends ControllerBehavior
 
     public function getPostContent()
     {
-        $model = post('model');
+        $modelClass = post('modelClass');
         $modelId = post('modelId');
 
-        $ds = new DataSource($model, 'class');
+        $ds = new DataSource($modelClass, 'class');
         $options = $ds->getPartialOptions($modelId, 'Waka\Mailtoer\Models\WakaMailto');
 
         $this->vars['options'] = $options;
@@ -50,11 +50,11 @@ class MailtoBehavior extends ControllerBehavior
         if ($errors) {
             throw new \ValidationException(['error' => $errors]);
         }
-        $wakaMailtoId = post('wakaMailtoId');
+        $productorId = post('productorId');
         $modelId = post('modelId');
 
-        //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?wakaMailtoId=' . $wakaMailtoId . '&modelId=' . $modelId);
-        return $this->makemailto($wakaMailtoId, $modelId);
+        //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?productorId=' . $productorId . '&modelId=' . $modelId);
+        return $this->makemailto($productorId, $modelId);
 
     }
 
@@ -64,7 +64,7 @@ class MailtoBehavior extends ControllerBehavior
     public function CheckValidation($inputs)
     {
         $rules = [
-            'wakaMailtoId' => 'required',
+            'productorId' => 'required',
         ];
 
         $validator = \Validator::make($inputs, $rules);
@@ -76,9 +76,9 @@ class MailtoBehavior extends ControllerBehavior
         }
     }
 
-    public function makemailto($wakaMailtoId, $modelId = null)
+    public function makemailto($productorId, $modelId = null)
     {
-        $this->vars['textobj'] = MailtoCreator::find($wakaMailtoId)->render($modelId);
+        $this->vars['textobj'] = MailtoCreator::find($productorId)->render($modelId);
         return [
             '#mailtoContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_text.htm'),
         ];

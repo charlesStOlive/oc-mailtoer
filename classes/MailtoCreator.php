@@ -51,7 +51,7 @@ class MailtoCreator extends \October\Rain\Extension\Extendable
         //Recupère des variables par des evenements exemple LP log dans la finction boot
         $dataModelFromEvent = Event::fire('waka.productor.subscribeData', [$this]);
         //trace_log($dataModelFromEvent);
-        if ($dataModelFromEvent) {
+        if ($dataModelFromEvent[0] ?? false) {
             foreach ($dataModelFromEvent as $dataEvent) {
                 //la fonction renvoi un array du type [0] => [key => $data] elle est traduite en key =>data
                 $model[key($dataEvent)] = $dataEvent[key($dataEvent)];

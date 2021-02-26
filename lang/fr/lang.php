@@ -26,6 +26,10 @@ return [
         'addFunction' => 'Ajouter une fonction/collection',
         'test' => "Tester",
         'show' => "Voir",
+        'create' => "Créer un texte ou un mailto",
+        'copy' => "Copier le texte",
+        'create_in_mailbox' => "Ecrire dans boite email",
+
     ],
     "button" => [
         'exemple_download' => "Télecharger un ex.",

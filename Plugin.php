@@ -40,33 +40,33 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        \Event::listen('backend.down.update', function ($controller) {
-            if (get_class($controller) == 'Waka\Mailtoer\Controllers\WakaMailto') {
-                return;
-            }
+        // \Event::listen('backend.down.update', function ($controller) {
+        //     if (get_class($controller) == 'Waka\Mailtoer\Controllers\WakaMailto') {
+        //         return;
+        //     }
 
-            if (in_array('Waka.Mailtoer.Behaviors.MailtoBehavior', $controller->implement)) {
-                $data = [
-                    'model' => $modelClass = str_replace('\\', '\\\\', get_class($controller->formGetModel())),
-                    'modelId' => $controller->formGetModel()->id,
-                ];
-                return \View::make('waka.mailtoer::publishMailto')->withData($data);;
-            }
-        });
-        \Event::listen('popup.actions.prod', function ($controller, $model, $id) {
-            if (get_class($controller) == 'Waka\Mailtoer\Controllers\WakaMailto') {
-                return;
-            }
+        //     if (in_array('Waka.Mailtoer.Behaviors.MailtoBehavior', $controller->implement)) {
+        //         $data = [
+        //             'model' => $modelClass = str_replace('\\', '\\\\', get_class($controller->formGetModel())),
+        //             'modelId' => $controller->formGetModel()->id,
+        //         ];
+        //         return \View::make('waka.mailtoer::publishMailto')->withData($data);;
+        //     }
+        // });
+        // \Event::listen('popup.actions.prod', function ($controller, $model, $id) {
+        //     if (get_class($controller) == 'Waka\Mailtoer\Controllers\WakaMailto') {
+        //         return;
+        //     }
 
-            if (in_array('Waka.Mailtoer.Behaviors.MailtoBehavior', $controller->implement)) {
-                //trace_log("Laligne 1 est ici");
-                $data = [
-                    'model' => str_replace('\\', '\\\\', $model),
-                    'modelId' => $id,
-                ];
-                return \View::make('waka.mailtoer::publishMailtoContent')->withData($data);;
-            }
-        });
+        //     if (in_array('Waka.Mailtoer.Behaviors.MailtoBehavior', $controller->implement)) {
+        //         //trace_log("Laligne 1 est ici");
+        //         $data = [
+        //             'model' => str_replace('\\', '\\\\', $model),
+        //             'modelId' => $id,
+        //         ];
+        //         return \View::make('waka.mailtoer::publishMailtoContent')->withData($data);;
+        //     }
+        // });
 
     }
 

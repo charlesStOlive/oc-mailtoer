@@ -9,6 +9,5 @@ class CleanScopes extends Seeder
     public function run()
     {
         WakaMailto::where('scopes', '<>', null)->update(['scopes' => null]);
-
     }
 }

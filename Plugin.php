@@ -30,7 +30,6 @@ class Plugin extends PluginBase
      */
     public function register()
     {
-
     }
 
     /**
@@ -67,7 +66,6 @@ class Plugin extends PluginBase
         //         return \View::make('waka.mailtoer::publishMailtoContent')->withData($data);;
         //     }
         // });
-
     }
 
     /**

@@ -74,5 +74,4 @@ class MailtoCreator extends \October\Rain\Extension\Extendable
 
         return $obj;
     }
-
 }

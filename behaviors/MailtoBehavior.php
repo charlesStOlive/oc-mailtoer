@@ -55,7 +55,6 @@ class MailtoBehavior extends ControllerBehavior
 
         //return Redirect::to('/backend/waka/mailtoer/wakamailtos/makemailto/?productorId=' . $productorId . '&modelId=' . $modelId);
         return $this->makemailto($productorId, $modelId);
-
     }
 
     /**

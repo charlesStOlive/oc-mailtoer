@@ -32,7 +32,6 @@ class WakaMailtos extends Controller
 
         \BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Waka.Mailtoer', 'wakamailtos');
-
     }
     public function update($id)
     {
@@ -47,5 +46,4 @@ class WakaMailtos extends Controller
             '#sidebar_attributes' => $this->attributesRender($this->params[0]),
         ];
     }
-
 }

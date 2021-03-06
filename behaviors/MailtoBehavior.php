@@ -23,7 +23,7 @@ class MailtoBehavior extends ControllerBehavior
         $modelId = post('modelId');
 
         $ds = new DataSource($modelClass, 'class');
-        $options = $ds->getPartialOptions($modelId, 'Waka\Mailtoer\Models\WakaMailto');
+        $options = $ds->getProductorOptions('Waka\Mailtoer\Models\WakaMailto', $modelId);
 
         $this->vars['options'] = $options;
         $this->vars['modelId'] = $modelId;

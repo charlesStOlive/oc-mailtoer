@@ -34,14 +34,21 @@ class MailtoBehavior extends ControllerBehavior
     public function onLoadMailtoBehaviorPopupForm()
     {
         $this->getPostContent();
-        return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
+        if($this->vars['options']) {
+            return $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_popup.htm');
+        } else {
+            return $this->makePartial('$/waka/utils/views/_popup_no_model.htm');
+        }
+        
     }
     public function onLoadMailtoBehaviorContentForm()
     {
         $this->getPostContent();
-        return [
-            '#popupActionContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_content.htm'),
-        ];
+        if($this->vars['options']) {
+             return ['#popupActionContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_content.htm')];
+        } else {
+             return ['#popupActionContent' => $this->makePartial('$/waka/utils/views/_content_no_model.htm')];
+        }
     }
 
     public function onMailtoBehaviorPopupValidation()

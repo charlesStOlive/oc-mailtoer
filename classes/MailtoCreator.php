@@ -5,7 +5,7 @@ use Event;
 use Waka\Mailtoer\Models\WakaMailto;
 use Waka\Utils\Classes\DataSource;
 
-class MailtoCreator extends \October\Rain\Extension\Extendable
+class MailtoCreator extends \Winter\Storm\Extension\Extendable
 {
 
     public static $wakamailto;

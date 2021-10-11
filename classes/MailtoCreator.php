@@ -35,7 +35,7 @@ class MailtoCreator extends \Winter\Storm\Extension\Extendable
     public function render($modelId = null)
     {
         $this->modelId = $modelId;
-        $this->ds = new DataSource($this->getProductor()->data_source);
+        $this->ds = \DataSources::find($this->getProductor()->data_source);
 
         $varName = strtolower($this->ds->name);
         $doted = $this->ds->getValues($modelId);

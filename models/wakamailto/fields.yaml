@@ -1,102 +1,90 @@
 # ===================================
 #  Form Field Definitions
 # ===================================
+fields:
+    subject:
+        label: waka.mailtoer::wakamailto.subject
+        span: left
+        permissions: [waka.mailtoer.*]
+    state:
+        label: waka.mailtoer::wakamailto.state
+        span: right
+        type: balloon-selector
+        required: true
+        default: Brouillon
+        options: listStates
+        default: Actif
+        permissions: [waka.mailtoer.admin.*]
 tabs:
-    defaultTab: waka.mailtoer::lang.wakamailto.tab_edit
+    defaultTab: waka.mailtoer::wakaMailto.tab_edit
     icons: 
-        waka.mailtoer::lang.wakamailto.tab_info: icon-info-circle
-        waka.mailtoer::lang.wakamailto.tab_edit: icon-pencil
-        waka.mailtoer::lang.wakamailto.tab_scopes: icon-filter  
-        waka.mailtoer::lang.wakamailto.tab_fnc: icon-address-card-o
+        waka.mailtoer::wakaMailto.tab_info: icon-info-circle
+        waka.mailtoer::wakaMailto.tab_edit: icon-pencil
+        waka.mailtoer::wakaMailto.tab_options: icon-cog
         waka.lp::lang.source_log.tab_lp: icon-file
-    fields:
-
-        name:
-            label: waka.mailtoer::lang.wakamailto.name
-            span: auto
-        # slug:
-        #      label: waka.mailtoer::lang.wakamailto.slug   
-        #      preset: name
-        #      span: auto
-        # subject:
-        #     label: waka.mailtoer::lang.wakamailto.subject
-        #     span: auto  
-        data_source@create:
-            label: waka.utils::lang.datasource.title
-            placeholder: waka.utils::lang.datasource.placeholder
-            type: dropdown
-            options: listDataSource
-            span: auto   
-        data_source@update:
-            label: waka.utils::lang.datasource.title
-            placeholder: waka.utils::lang.datasource.placeholder
-            type: dropdown
-            options: listDataSource
-            span: auto  
-            disabled: true
-        subject:
-            label: waka.mailer::lang.wakamail.subject
-            span: full  
-        template:
-            label: waka.mailtoer::lang.wakamailto.template
-            type: textarea
-        model_functions@update:
-                label: Créer des collections à partir des fonctions du modèle
-                type: functionslist
-                span: auto
-                tab: waka.mailtoer::lang.wakamailto.tab_fnc
-        images@update:
-                label: Injecter des images à partir du modèle
-                type: imageslist
-                span: auto
-                tab: waka.mailtoer::lang.wakamailto.tab_fnc
-        is_scope: 
-            label: waka.utils::lang.scopes.is_scope
+    fields:    
+        render_mode_html:
+            label: waka.mailtoer::wakamailto.render_mode_html
+            span: full
             type: switch
-            tab: waka.mailtoer::lang.wakamailto.tab_scopes
-        scopes:
-            type: scopeslist
-            tab: waka.mailtoer::lang.wakamailto.tab_scopes
-            trigger:
-                action: hide
-                field: is_scope
-                condition: unchecked
-        # scopes@update:
-        #     label: waka.worder::lang.document.scopes.title
-        #     type: nestedform
-        #     tab: waka.mailtoer::lang.wakamailto.tab_scopes
-        #     form:
-        #         fields:
-        #             mode: 
-        #                 type: radio
-        #                 default: [all]
-        #                 cssClass: 'inline-options'
-        #                 options:
-        #                     all: Toutes les conditions doivent être vrai
-        #                     one: Une seul condition doit être vrai
-        #             conditions:
-        #                 label: waka.worder::lang.document.scopes.conditions
-        #                 type: repeater
-        #                 prompt: waka.worder::lang.document.scopes.prompt
-        #                 span: full
-        #                 form:
-        #                     fields:
-        #                         self: 
-        #                             label: waka.worder::lang.document.scopes.self
-        #                             type: checkbox
-        #                             span: full
-        #                             default: true
-        #                         target:
-        #                             label: waka.worder::lang.document.scopes.target
-        #                             commentAbove: waka.worder::lang.document.scopes.target_com
-        #                             span: auto
-        #                             trigger:
-        #                                 action: disable
-        #                                 field: self
-        #                                 condition: checked
-        #                         ids:
-        #                             label: waka.worder::lang.document.scopes.id
-        #                             type: taglist
-        #                             mode: array
-        #                             commentAbove: waka.worder::lang.document.scopes.id_com
-        #                             span: auto
+            comment: waka.mailtoer::wakamailto.render_mode_html_com
+            permissions: [waka.mailtoer.admin.super]
+            tab: waka.mailtoer::wakamailto.tab_edit
+        content:
+            label: waka.mailtoer::wakamailto.content
+            span: full
+            type: codeeditor
+            size: giant
+            language: html
+            dependson: render_mode_html
+            permissions: [waka.mailtoer.admin.super]
+            tab: waka.mailtoer::wakamailto.tab_edit
+        rule_asks:
+            label: waka.mailtoer::wakamailto.rule_asks
+            span: full
+            type: askbuilder
+            targetProductor: wakaMailto
+            full_access: waka.rules.asks.admin
+            permissions: [waka.rules.asks.*]
+            tab: waka.mailtoer::wakamailto.tab_edit
+        rule_fncs:
+            label: waka.mailtoer::wakamailto.rule_fncs
+            span: full
+            type: fncbuilder
+            targetProductor: wakaMailto
+            full_access: waka.rules.fncs.admin
+            permissions: [waka.rules.fncs.*]
+            tab: waka.mailtoer::wakamailto.tab_edit
+        test_id:
+            label: waka.mailtoer::wakamailto.test_id
+            span: left
+            type: dropdown
+            placeholder: waka.utils::lang.global.placeholder
+            options: listDataSourceTarget
+            permissions: [waka.mailtoer.admin.*]
+            tab: waka.mailtoer::wakamailto.tab_options
+        rule_conditions:
+            label: waka.mailtoer::wakamailto.rule_conditions
+            span: full
+            type: rulebuilder
+            ruleMode: condition
+            targetProductor: wakaMailto
+            permissions: [waka.mailtoer.admin.super]
+            tab: waka.mailtoer::wakamailto.tab_options
+secondaryTabs:
+    fields:
+        # info:
+        #     type: modelinfo
+        #     mode: secondary
+        #     src: /waka/mailtoer/models/wakamailto/fields_for_side_bar.yaml
+        infos:
+            span: full
+            type: modelinfo
+            permissions: [waka.mailtoer.admin.*]
+            tab: waka.mailtoer::wakamailto.tab_infos
+            src: waka/mailtoer/models/wakamailto/fields_for_side_bar.yaml
+        attributs:
+            span: full
+            type: attributs
+            permissions: [waka.mailtoer.admin.*]
+            tab: waka.mailtoer::wakamailto.tab_attributs

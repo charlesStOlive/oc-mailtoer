@@ -11,6 +11,10 @@ class MailtoCreator extends \Winter\Storm\Extension\Extendable
     public static $wakamailto;
     public $ds;
     public $modelId;
+    private $isTwigStarted;
+    public $manualData = [];
+    public $implement = [];
+    public $askResponse = [];
 
     public static function find($mail_id, $slug = false)
     {
@@ -32,46 +36,196 @@ class MailtoCreator extends \Winter\Storm\Extension\Extendable
         return self::$wakamailto;
     }
 
-    public function render($modelId = null)
+    public function setModelId($modelId)
     {
+        //trace_log('setModelId');
         $this->modelId = $modelId;
-        $this->ds = \DataSources::find($this->getProductor()->data_source);
+        $dataSourceCode = $this->getProductor()->data_source;
+        $this->ds = \DataSources::find($dataSourceCode);
+        $this->ds->instanciateModel($modelId);
+        //trace_log('ok');
+        return $this;
+    }
 
-        $varName = strtolower($this->ds->name);
-        $doted = $this->ds->getValues($modelId);
-        $img = $this->ds->wimages->getPicturesUrl($this->getProductor()->images);
-        $fnc = $this->ds->getFunctionsCollections($modelId, $this->getProductor()->model_functions);
+    public function setModelTest()
+    {
+        $this->modelId = $this->getProductor()->test_id;
+        $dataSourceCode = $this->getProductor()->data_source;
+        $this->ds = \DataSources::find($dataSourceCode);
+        $this->ds->instanciateModel($this->modelId);
+        return $this;
+    }
 
-        $model = [
-            $varName => $doted,
-            'IMG' => $img,
-            'FNC' => $fnc,
-        ];
+    public function setAsksResponse($datas = [])
+    {
+        if($this->ds) {
+             $this->askResponse = $this->ds->getAsksFromData($datas, $this->getProductor()->asks);
+        } else {
+            $this->askResponse = [];
+        }
+        return $this;
+    }
+
+    public function setRuleAsksResponse($datas = [])
+    {
+        $askArray = [];
+        $srcmodel = $this->ds->getModel($this->modelId);
+        $asks = $this->getProductor()->rule_asks()->get();
+        foreach($asks as $ask) {
+            $key = $ask->getCode();
+            //trace_log($key);
+            $askResolved = $ask->resolve($srcmodel, 'txt', $datas);
+            $askArray[$key] = $askResolved;
+        }
+        //trace_log($askArray);
+        return array_replace($askArray,$this->askResponse);
+        
+    }
+
+    public function setRuleFncsResponse()
+    {
+        $fncArray = [];
+        $srcmodel = $this->ds->getModel($this->modelId);
+        $fncs = $this->getProductor()->rule_fncs()->get();
+        foreach($fncs as $fnc) {
+            $key = $fnc->getCode();
+            //trace_log('key of the function');
+            $fncResolved = $fnc->resolve($srcmodel,$this->ds->code);
+            $fncArray[$key] = $fncResolved;
+        }
+        //trace_log($fncArray);
+        return $fncArray;
+        
+    }
+
+    public function setdefaultAsks($datas = [])
+    {
+        if($this->ds) {
+             $this->askResponse = $this->ds->getAsksFromData($datas, $this->getProductor()->asks);
+        } else {
+            $this->askResponse = [];
+        }
+        return $this;
+    }
+
+    public function checkConditions()//Ancienement checkScopes
+    {
+        $conditions = new \Waka\Utils\Classes\Conditions($this->getProductor(), $this->ds->model);
+        return $conditions->checkConditions();
+    }
+
+    public function setManualData($data) {
+        $this->manualData = array_merge($this->manualData, $data);
+        return $this;
+    }
+
+    public function prepare()
+    {
+        if ((!$this->ds || !$this->modelId)) {
+            throw new \ApplicationException("Le modelId n a pas ete instancié et il n' y a pas de données manuel");
+        }
+        $model = [];
+        //Fusion des données avec prepare model reoturne un objet avec ds, imag et fnc
+
+        if($this->ds && $this->modelId) {
+            $values = $this->ds->getValues($this->modelId);
+            $model = [
+                'ds' => $values,
+            ];
+        }
+        //Ajout des donnnées manuels
+        if(count($this->manualData)) {
+            $model = array_merge($model, $this->manualData);
+        }
+
+        //Nouveau bloc pour nouveaux asks
+        if($this->getProductor()->rule_asks()->count()) {
+            $this->askResponse = $this->setRuleAsksResponse($model);
+
+            if(!$this->askResponse) {
+                $this->setAsksResponse($model);
+            }
+        } 
+        
+
+        //Nouveau bloc pour les new Fncs
+        if($this->getProductor()->rule_fncs()->count()) {
+            $fncs = $this->setRuleFncsResponse($model);
+            $model = array_merge($model, [ 'fncs' => $fncs]);
+        }
+        
+
+        $model = array_merge($model, [ 'asks' => $this->askResponse]);
 
         //Recupère des variables par des evenements exemple LP log dans la finction boot
         $dataModelFromEvent = Event::fire('waka.productor.subscribeData', [$this]);
-        //trace_log($dataModelFromEvent);
         if ($dataModelFromEvent[0] ?? false) {
             foreach ($dataModelFromEvent as $dataEvent) {
-                //la fonction renvoi un array du type [0] => [key => $data] elle est traduite en key =>data
-                $model[key($dataEvent)] = $dataEvent[key($dataEvent)];
+                //trace_log($dataEvent);
+               $model[key($dataEvent)] = $dataEvent[key($dataEvent)];
             }
         }
 
-        //trace_log($model);
+        $content = $this->getProductor()->content;
+        trace_log($model);
+        $content = \Twig::parse($content, $model);
+        return $content;
+    }
 
-        $html = \Twig::parse($this->getProductor()->template, $model);
-        $body = rawurlencode($html);
+    public function render()
+    {
+        $this->startTwig();
+        $content = html_entity_decode($this->prepare());
+        $this->stopTwig();
+        
+
+        $body = rawurlencode($content);
         $subject = rawurlencode($this->getProductor()->subject);
-        $to = $this->ds->getContact('to', $modelId)[0] ?? '';
+        $to = $this->ds->getContact('to')[0];
         //trace_log($to);
         $obj = [
             'to' => $to,
             'subject' => $subject,
             'body' => $body,
-            'text' => $html,
+            'text' => $content,
         ];
 
         return $obj;
+    }
+
+    protected function startTwig()
+    {
+        if ($this->isTwigStarted) {
+            return;
+        }
+
+        $this->isTwigStarted = true;
+
+        $markupManager = \System\Classes\MarkupManager::instance();
+        $markupManager->beginTransaction();
+        $markupManager->registerTokenParsers([
+            new \System\Twig\MailPartialTokenParser,
+        ]);
+    }
+
+    /**
+     * Indicates that we are finished with Twig.
+     * @return void
+     */
+    protected function stopTwig()
+    {
+        if (!$this->isTwigStarted) {
+            return;
+        }
+
+        $markupManager = \System\Classes\MarkupManager::instance();
+        $markupManager->endTransaction();
+
+        $this->isTwigStarted = false;
+    }
+
+    public function getModelEmails()
+    {
+        return $this->ds->getContact('to', null);
     }
 }

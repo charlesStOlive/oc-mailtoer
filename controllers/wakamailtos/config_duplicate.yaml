@@ -6,8 +6,8 @@
 # Model Class name
 modelClass: Waka\Mailtoer\Models\WakaMailto
 
-name: Mailto
-title: Dupliquer un mailto
+name: wakamailtos
+title: waka.utils::lang.global.duplicate_theWakaMailto
 redirect: backend/waka/mailtoer/wakamailtos/update/
 
 duplication:
@@ -24,7 +24,7 @@ duplication:
     #Les champs qui seront modifié dans le formulaire du popup 
     fields:
         name:
-          label: Nom du mailto
+          label: waka.mailtoer::wakamailto.name 
 
         # _keep:
         #   label: Dupliquer dans ce projet

@@ -3,27 +3,30 @@
 # ===================================
 
 columns:
-    sort_order:
-        label: waka.utils::lang.global.sort_order
+    id:
+        label: ID
+        searchable: true
         invisible: true
-    inform:
-        type: waka-icon-info
-        width: 25px
-        label : ' '
-        launch_request: true
-        show_null: true
-        clickable: false
+    render_mode_html:
+        label: waka.mailtoer::wakamailto.render_mode_html
+        type: switch
         searchable: false
-        sortable: false
+        sortable: true
     name:
-        label: waka.mailtoer::lang.wakamailto.name
+        label: waka.mailtoer::wakamailto.name
+        searchable: true
+    slug:
+        label: waka.mailtoer::wakamailto.slug
+        clickable: false
+    state:
+        label: waka.mailtoer::wakamailto.state
         searchable: true
     data_source:
-        label: waka.utils::lang.datasource.title
-        type: datasource
-    is_scope:
-        label: waka.utils::lang.scopes.is_scope
-        type: switch
+        label: waka.mailtoer::wakamailto.data_source
+        searchable: true
     updated_at:
         label: waka.utils::lang.global.updated_at
         type: timetense
+    sort_order:
+        label: waka.utils::lang.global.sort_order
+        invisible: true

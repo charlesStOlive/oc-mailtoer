@@ -1,58 +1,34 @@
+<!-- Primary content -->
 <?php Block::put('breadcrumb') ?>
-<ul>
-    <li><a href="<?= Backend::url('system/settings/') ?>">Réglages</a></li>
-    <li><a href="<?= Backend::url('waka/mailtoer/wakamailtos') ?>">Gerer txt & mailto</a></li>
-    <li><?= e($this->pageTitle) ?></li>
-</ul>
+<?=$this->btnsWidget->renderBreadcrump()?>
 <?php Block::endPut() ?>
 <?php Block::put('form-contents') ?>
 <?php if (!$this->fatalError): ?>
 
 <?= Form::open(['class' => 'layout']) ?>
 
-<div class="form-buttons">
-    <?= $this->fireViewEvent('backend.update.tools') ?>
-    <?= $this->fireViewEvent('backend.top.update') ?>
-</div>
-
 <div class="layout-row">
-    <?= $this->formRender() ?>
+    <?php if ($this->formHasOutsideFields()): ?>
+    <?= $this->formRender(['section' => 'outside']) ?>
+    <?php endif ?>
+    <?php if ($this->formHasPrimaryTabs()): ?>
+    <?= $this->formRender(['section' => 'primary']) ?>
+    <?php endif ?>
 </div>
-
 <div class="form-buttons">
     <div class="loading-indicator-container">
-        <button type="submit" data-request="onSave" data-request-data="redirect:0" data-hotkey="ctrl+s, cmd+s"
-            data-load-indicator="Saving WakaMailto..." class="btn btn-primary">
-            <u>S</u>ave
-        </button>
-        <button type="button" data-request="onSave" data-request-data="close:1" data-hotkey="ctrl+enter, cmd+enter"
-            data-load-indicator="Saving WakaMailto..." class="btn btn-default">
-            Save and Close
-        </button>
-        <button type="button" class="oc-icon-trash-o btn-icon danger pull-right" data-request="onDelete"
-            data-load-indicator="Deleting WakaMailto..." data-request-confirm="Delete this wakamailto?">
-        </button>
-        <span class="btn-text">
-            or <a href="<?= Backend::url('waka/mailtoer/wakamailtos') ?>">Cancel</a>
-        </span>
-
+        <?= $this->btnsWidget->renderBar('update') ?>
     </div>
 </div>
-
-<?= Form::close() ?>
-
-<?php else: ?>
-
-<p class="flash-message static error"><?= e($this->fatalError) ?></p>
-<p><a href="<?= Backend::url('waka/mailtoer/wakamailtos') ?>" class="btn btn-default">Return to waka mailtos list</a>
-</p>
-
-<?php endif ?>
 <?php Block::endPut() ?>
 
 <!-- Complimentary sidebar -->
-<?php Block::put('form-sidebar');?>
-<div id="sidebar_attributes"><?= $this->attributesRender() ?></div>
+<?php Block::put('form-sidebar') ?>
+<div>
+    <?= $this->formRenderSecondaryTabs() ?>
+</div>
+
+
 <?php Block::endPut() ?>
 
 <!-- Layout execution -->
@@ -61,3 +37,17 @@
 <?= $this->makeLayout('form-with-sidebar') ?>
 <?= Form::close() ?>
 <?php Block::endPut() ?>
+
+<?php else: ?>
+<div class="control-breadcrumb">
+    <?= Block::placeholder('breadcrumb') ?>
+</div>
+<div class="padded-container">
+    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+    <p>
+        <a href="<?= Backend::url('backend/users') ?>"
+           class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?>
+        </a>
+    </p>
+</div>
+<?php endif ?>

@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: Txt & mailto
+name: waka.mailtoer::wakamailto.form_name
 
 # Model Form Field configuration
 form: $/waka/mailtoer/models/wakamailto/fields.yaml
@@ -16,16 +16,17 @@ defaultRedirect: waka/mailtoer/wakamailtos
 
 # Create page
 create:
-    title: Créer txt & mailto
+    title: waka.mailtoer::wakamailto.create
     redirect: waka/mailtoer/wakamailtos/update/:id
     redirectClose: waka/mailtoer/wakamailtos
+    form: $/waka/mailtoer/models/wakamailto/fields_create.yaml
 
 # Update page
 update:
-    title: Editer txt & mailto
-    redirect: waka/mailtoer/wakamailtos
+    title: waka.mailtoer::wakamailto.update
+    redirect: waka/mailtoer/wakamailtos/update/:id
     redirectClose: waka/mailtoer/wakamailtos
 
 # Preview page
 preview:
-    title: Preview Waka Mailto
+    title: waka.mailtoer::wakamailto.preview_name

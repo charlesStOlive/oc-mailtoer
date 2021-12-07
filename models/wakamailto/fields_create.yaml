@@ -1,0 +1,42 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    state:
+        label: waka.mailtoer::wakamailto.state
+        span: left
+        type: balloon-selector
+        required: true
+        default: Brouillon
+        options: listStates
+        default: Actif
+        permissions: [waka.mailtoer.admin.*]
+    name:
+        label: waka.mailtoer::wakamailto.name
+        span: left
+        required: true
+        comment: waka.mailtoer::wakamailto.name_com
+        permissions: [waka.mailtoer.admin.*]
+    slug:
+        label: waka.mailtoer::wakamailto.slug
+        span: right
+        required: true
+        preset: name
+        permissions: [waka.mailtoer.*]
+    data_source:
+        label: waka.mailtoer::wakamailto.data_source
+        span: right
+        type: dropdown
+        placeholder: waka.utils::lang.global.placeholder
+        required: true
+        options: listDataSource
+        trigger:
+            action: hide
+            field: no_ds
+            condition: checked
+        permissions: [waka.mailtoer.admin.super]
+    subject:
+        label: waka.mailtoer::wakamailto.subject
+        span: left
+        permissions: [waka.mailtoer.*]

@@ -84,7 +84,7 @@ class MailtoBehavior extends ControllerBehavior
 
     public function makemailto($productorId, $modelId = null)
     {
-        $this->vars['textobj'] = MailtoCreator::find($productorId)->render($modelId);
+        $this->vars['textobj'] = MailtoCreator::find($productorId)->setModelId($modelId)->render();
         return [
             '#mailtoContent' => $this->makePartial('$/waka/mailtoer/behaviors/mailtobehavior/_text.htm'),
         ];

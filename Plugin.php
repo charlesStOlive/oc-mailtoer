@@ -39,6 +39,7 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+        \DataSources::registerDataSources(plugins_path().'/waka/mailtoer/config/datasources.yaml');
         // \Event::listen('backend.down.update', function ($controller) {
         //     if (get_class($controller) == 'Waka\Mailtoer\Controllers\WakaMailto') {
         //         return;

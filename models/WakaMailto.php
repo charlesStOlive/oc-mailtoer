@@ -1,36 +1,55 @@
 <?php namespace Waka\Mailtoer\Models;
 
 use Model;
+use Mjml\Client as MjmlClient;
 
 /**
- * WakaMailto Model
+ * wakaMailto Model
  */
+
 class WakaMailto extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
+    use \Winter\Storm\Database\Traits\Sortable;
+    use \Waka\Utils\Classes\Traits\DataSourceHelpers;
+
 
     /**
      * @var string The database table used by the model.
      */
     public $table = 'waka_mailtoer_waka_mailtos';
 
+
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = ['id'];
 
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    //protected $fillable = [];
 
     /**
      * @var array Validation rules for attributes
      */
     public $rules = [
-        'data_source' => 'required',
+        'state' => 'required',
         'name' => 'required',
+        'slug' => 'required|unique',
+        'data_source' => 'required',
     ];
+
+    public $customMessages = [
+        'data_source.required' => 'waka.mailtoer::wakamailto.e.data_source',
+    ];
+
+    /**
+     * @var array attributes send to datasource for creating document
+     */
+    public $attributesToDs = [
+    ];
+
 
     /**
      * @var array Attributes to be cast to native types
@@ -40,12 +59,14 @@ class WakaMailto extends Model
     /**
      * @var array Attributes to be cast to JSON
      */
-    protected $jsonable = ['scopes', 'model_functions', 'images'];
+    protected $jsonable = [
+    ];
 
     /**
      * @var array Attributes to be appended to the API representation of the model (ex. toArray())
      */
-    protected $appends = [];
+    protected $appends = [
+    ];
 
     /**
      * @var array Attributes to be removed from the API representation of the model (ex. toArray())
@@ -63,25 +84,75 @@ class WakaMailto extends Model
     /**
      * @var array Relations
      */
-    public $hasOne = [];
-    public $hasMany = [];
+    public $hasOne = [
+    ];
+    public $hasMany = [
+    ];
+    public $hasOneThrough = [
+    ];
+    public $hasManyThrough = [
+    ];
     public $belongsTo = [
-        //'data_source' => ['Waka\Utils\Models\DataSource'],
     ];
-    public $belongsToMany = [];
+    public $belongsToMany = [
+    ];        
     public $morphTo = [];
-    public $morphOne = [];
-    public $morphMany = [
-        'informs' => ['Waka\Informer\Models\Inform', 'name' => 'informeable'],
+    public $morphOne = [
     ];
-    public $attachOne = [];
-    public $attachMany = [];
+    public $morphMany = [
+        'rule_asks' => [
+            'Waka\Utils\Models\RuleAsk',
+            'name' => 'askeable',
+            'delete' => true
+        ],
+        'rule_fncs' => [
+            'Waka\Utils\Models\RuleFnc',
+            'name' => 'fnceable',
+            'delete' => true
+        ],
+        'rule_conditions' => [
+            'Waka\Utils\Models\RuleCondition',
+            'name' => 'conditioneable',
+            'delete' => true
+        ],
+    ];
+    public $attachOne = [
+    ];
+    public $attachMany = [
+    ];
+
+    //startKeep/
+
+    /**
+     *EVENTS
+     **/
 
     /**
      * LISTS
-     */
-    public function listDataSource()
-    {
-        return \Waka\Utils\Classes\DataSourceList::lists();
+     **/
+    public function listStates() {
+        return \Config::get('waka.utils::basic_state');
     }
+
+    /**
+     * GETTERS
+     **/
+
+    /**
+     * SCOPES
+     */
+
+    /**
+     * SETTERS
+     */
+ 
+    /**
+     * FILTER FIELDS
+     */
+
+    /**
+     * OTHERS
+     */
+
+//endKeep/
 }

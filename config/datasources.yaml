@@ -1,0 +1,7 @@
+datasource: 
+    wakaMailto:
+        hidden: true
+        label: wakaMailto
+        class: Waka\Mailtoer\Models\WakaMailto
+        controller: waka/mailtoer/wakamailtos
+        attributes: waka/mailtoer/models/wakamailto/attributes.yaml

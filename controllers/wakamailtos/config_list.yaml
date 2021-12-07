@@ -9,7 +9,7 @@ list: $/waka/mailtoer/models/wakamailto/columns.yaml
 modelClass: Waka\Mailtoer\Models\WakaMailto
 
 # List Title
-title: Gérer txt & mailto
+title: waka.mailtoer::wakamailto.title
 
 # Link URL for each record
 recordUrl: waka/mailtoer/wakamailtos/update/:id
@@ -29,11 +29,14 @@ showSetup: true
 # Displays the sorting link on each column
 showSorting: true
 
+
 # Default sorting column
 # defaultSort:
 #     column: created_at
 #     direction: desc
-
+defaultSort:
+    column: sort_order
+    direction: desc
 # Display checkboxes next to each record
 showCheckboxes: true
 
@@ -45,3 +48,5 @@ toolbar:
     # Search widget configuration
     search:
         prompt: backend::lang.list.search_prompt
+
+filter: config_filters.yaml

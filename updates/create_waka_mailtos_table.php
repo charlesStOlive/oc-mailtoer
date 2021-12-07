@@ -11,16 +11,16 @@ class CreateWakaMailtosTable extends Migration
         Schema::create('waka_mailtoer_waka_mailtos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('subject')->nullable();
+            $table->string('state')->default('Actif');
+            $table->boolean('render_mode_html')->nullable();
+            $table->text('content')->nullable();
+            $table->string('test_id')->nullable();
             $table->string('name');
-            $table->text('template')->nullable();
-            $table->string('subject');
-            $table->string('data_source')->nullable();
-            $table->text('scopes')->nullable();
-            $table->text('model_functions')->nullable();
-            $table->text('images')->nullable();
+            $table->string('slug');
+            $table->string('data_source');
+            //reorder
             $table->integer('sort_order')->default(0);
-
-            $table->softDeletes();
             $table->timestamps();
         });
     }

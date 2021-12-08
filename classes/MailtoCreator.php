@@ -167,7 +167,7 @@ class MailtoCreator extends \Winter\Storm\Extension\Extendable
         }
 
         $content = $this->getProductor()->content;
-        trace_log($model);
+        //trace_log($model);
         $content = \Twig::parse($content, $model);
         return $content;
     }

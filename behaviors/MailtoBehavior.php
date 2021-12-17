@@ -9,12 +9,16 @@ class MailtoBehavior extends ControllerBehavior
     //use \Waka\Utils\Classes\Traits\StringRelation;
 
     protected $mailtoBehaviorWidget;
+    public $errors;
 
     public function __construct($controller)
     {
         parent::__construct($controller);
         $controller->addJs('/plugins/waka/utils/widgets/sidebarattributes/assets/js/clipboard.min.js');
-        //$this->mailtoBehaviorWidget = $this->createMailtoBehaviorWidget();
+        $this->errors = [];
+        \Event::listen('waka.utils::conditions.error', function ($error) {
+            array_push($this->errors, $error);
+        });
     }
 
     public function getPostContent()
@@ -26,6 +30,8 @@ class MailtoBehavior extends ControllerBehavior
         $options = $ds->getProductorOptions('Waka\Mailtoer\Models\WakaMailto', $modelId);
 
         $this->vars['options'] = $options;
+        $this->vars['modelClass'] = $modelClass;
+        $this->vars['errors'] = $this->errors;
         $this->vars['modelId'] = $modelId;
     }
     /**

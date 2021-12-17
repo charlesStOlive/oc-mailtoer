@@ -3,6 +3,9 @@
     <h5><?=e(trans('waka.mailtoer::lang.wakamailto.create'))?></h5>
     <div id="mailtoContent">
         <div class="form-group">
+            <?= $this->makePartial('~/plugins/waka/utils/views/condition_errors_tt.htm') ?>
+            <input id="modelClass" name="modelClass" type="hidden" value="<?=$modelClass?>">
+            <input id="modelId" name="modelId" type="hidden" value="<?=$modelId?>">
             <select class="form-control custom-select"
                     name="productorId">
                 <option value=""
@@ -15,7 +18,7 @@
         </div>
         <button type="submit"
                 data-request="onMailtoBehaviorPopupValidation"
-                data-request-data="redirect:0, modelId:'<?=$modelId?>'"
+                data-request-data="redirect:0"
                 data-hotkey="ctrl+s, cmd+s"
                 class="btn btn-primary">
             <?=e(trans('waka.utils::lang.global.validate'))?>

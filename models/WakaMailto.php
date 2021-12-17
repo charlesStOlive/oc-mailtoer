@@ -141,6 +141,10 @@ class WakaMailto extends Model
     /**
      * SCOPES
      */
+    public function scopeActive($query) {
+        return $query->where('state', 'Actif');
+
+    }
 
     /**
      * SETTERS

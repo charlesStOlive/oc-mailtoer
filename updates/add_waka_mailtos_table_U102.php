@@ -4,7 +4,7 @@ use Winter\Storm\Database\Schema\Blueprint;
 use Winter\Storm\Database\Updates\Migration;
 use Schema;
 
-class AddWakaMailtosTableU103 extends Migration
+class AddWakaMailtosTableU102 extends Migration
 {
     public function up()
     {

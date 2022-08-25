@@ -55,11 +55,8 @@ class MailtoCreator extends \Winter\Storm\Extension\Extendable
 
     public function render()
     {
-        $this->startTwig();
-        $content = html_entity_decode($this->prepare());
-        $this->stopTwig();
         
-
+        $content = html_entity_decode($this->prepare());
         $body = rawurlencode($content);
         $subject = rawurlencode($this->getProductor()->subject);
         $to = self::$ds->getContact('to')[0];

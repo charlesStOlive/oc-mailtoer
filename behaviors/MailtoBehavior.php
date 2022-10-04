@@ -6,8 +6,6 @@ use Waka\Utils\Classes\DataSource;
 
 class MailtoBehavior extends ControllerBehavior
 {
-    //use \Waka\Utils\Classes\Traits\StringRelation;
-
     protected $mailtoBehaviorWidget;
     public $errors;
 

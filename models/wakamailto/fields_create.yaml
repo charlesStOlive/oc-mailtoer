@@ -8,9 +8,8 @@ fields:
         span: left
         type: balloon-selector
         required: true
-        default: Brouillon
         options: listStates
-        default: Actif
+        default: Brouillon
         permissions: [waka.mailtoer.admin.*]
     name:
         label: waka.mailtoer::wakamailto.name
@@ -24,18 +23,6 @@ fields:
         required: true
         preset: name
         permissions: [waka.mailtoer.*]
-    data_source:
-        label: waka.mailtoer::wakamailto.data_source
-        span: right
-        type: dropdown
-        placeholder: waka.utils::lang.global.placeholder
-        required: true
-        options: listDataSource
-        trigger:
-            action: hide
-            field: no_ds
-            condition: checked
-        permissions: [waka.mailtoer.admin.super]
     subject:
         label: waka.mailtoer::wakamailto.subject
         span: left

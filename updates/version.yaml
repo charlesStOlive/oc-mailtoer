@@ -1,6 +1,3 @@
 1.0.1:
     - 'First version of Mailtoer'
     - create_waka_mailtos_table.php
-1.0.2:
-    - 'Ajout à la mano de la LP'
-    - add_waka_mailtos_table_U102.php

@@ -13,6 +13,7 @@ class WakaMailtos extends Controller
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.ListController',
         'Waka.Utils.Behaviors.BtnsBehavior',
+        'Backend.Behaviors.RelationController',
         'Waka.Utils.Behaviors.SideBarUpdate',
         'Waka.Mailer.Behaviors.MailBehavior',
         'Backend.Behaviors.ReorderController',
@@ -21,12 +22,14 @@ class WakaMailtos extends Controller
     public $formConfig = 'config_form.yaml';
     public $listConfig = 'config_list.yaml';
     public $btnsConfig = 'config_btns.yaml';
+    public $relationConfig = 'config_relation.yaml';
     public $duplicateConfig = 'config_duplicate.yaml';
     public $reorderConfig = 'config_reorder.yaml';
     public $sideBarUpdateConfig = 'config_side_bar_update.yaml';
 
     public $requiredPermissions = ['waka.mailtoer.admin.*'];
     //FIN DE LA CONFIG AUTO
+    //startKeep/
 
     public function __construct()
     {
@@ -34,8 +37,6 @@ class WakaMailtos extends Controller
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Waka.Mailtoer', 'WakaMailtos');
     }
-
-    //startKeep/
 
     public function update($id)
     {

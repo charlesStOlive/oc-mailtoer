@@ -2,7 +2,6 @@
 return [
     'content' => 'Éditeur',
     'create' => 'Créer un email',
-    'data_source' => 'Source des données',
     'edit' => 'Éditer un email',
     'force_pj_name' => 'Forcer un nom pour la PJ',
     'form_name' => 'Gestion de l\'email',
@@ -27,11 +26,11 @@ return [
     'subject' => 'Sujet',
     'tab_edit' => 'Logs',
     'tab_info' => 'Information',
-    'test_id' => 'Modèle de test',
     'test_title' => 'Tester un email',
     'tests' => 'Tests',
     'title' => 'Gestion des emails',
     'update' => 'Éditer un email',
+    'waka_session' => 'Clef pour LP',
     'e' => [
         'data_source' => 'Vous devez choisir un modèle'
     ]

@@ -12,13 +12,11 @@ class CreateWakaMailtosTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('subject')->nullable();
-            $table->string('state')->default('Actif');
+            $table->string('state')->default('Brouillon');
             $table->boolean('render_mode_html')->nullable();
             $table->text('content')->nullable();
-            $table->string('test_id')->nullable();
             $table->string('name');
             $table->string('slug');
-            $table->string('data_source');
             //reorder
             $table->integer('sort_order')->default(0);
             $table->timestamps();

@@ -21,9 +21,6 @@ columns:
     state:
         label: waka.mailtoer::wakamailto.state
         searchable: true
-    data_source:
-        label: waka.mailtoer::wakamailto.data_source
-        searchable: true
     updated_at:
         label: waka.utils::lang.global.updated_at
         type: timetense

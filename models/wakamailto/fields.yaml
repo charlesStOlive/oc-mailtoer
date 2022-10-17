@@ -11,9 +11,8 @@ fields:
         span: right
         type: balloon-selector
         required: true
-        default: Brouillon
         options: listStates
-        default: Actif
+        default: Brouillon
         permissions: [waka.mailtoer.admin.*]
 tabs:
     defaultTab: waka.mailtoer::wakaMailto.tab_edit
@@ -55,14 +54,6 @@ tabs:
             full_access: waka.rules.fncs.admin
             permissions: [waka.rules.fncs.*]
             tab: waka.mailtoer::wakamailto.tab_edit
-        test_id:
-            label: waka.mailtoer::wakamailto.test_id
-            span: left
-            type: dropdown
-            placeholder: waka.utils::lang.global.placeholder
-            options: listDataSourceTarget
-            permissions: [waka.mailtoer.admin.*]
-            tab: waka.mailtoer::wakamailto.tab_options
         rule_conditions:
             label: waka.mailtoer::wakamailto.rule_conditions
             span: full
@@ -71,6 +62,13 @@ tabs:
             targetProductor: wakaMailto
             permissions: [waka.mailtoer.admin.super]
             tab: waka.mailtoer::wakamailto.tab_options
+        waka_session:
+            label: waka.mailtoer::wakamailto.waka_session
+            span: full
+            type: partial
+            path: field_waka_session
+            permissions: [waka.mailer.admin.super]
+            tab: waka.mailtoer::wakamailto.tab_session
 secondaryTabs:
     fields:
         # info:

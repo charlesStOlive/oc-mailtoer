@@ -15,17 +15,4 @@ fields:
         required: true
         permissions: [waka.mailtoer.*]
         noUpdate: true
-    data_source:
-        label: waka.mailtoer::wakamailto.data_source
-        span: right
-        type: dropdown
-        placeholder: waka.utils::lang.global.placeholder
-        required: true
-        disabled: true
-        options: listDataSource
-        trigger:
-            action: hide
-            field: no_ds
-            condition: checked
-        permissions: [waka.mailtoer.admin.super]
 

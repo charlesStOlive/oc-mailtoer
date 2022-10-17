@@ -12,6 +12,7 @@ class WakaMailto extends Model
     use \Winter\Storm\Database\Traits\Validation;
     use \Winter\Storm\Database\Traits\Sortable;
     use \Waka\Utils\Classes\Traits\DataSourceHelpers;
+    use \Waka\Session\Classes\Traits\WakaSessionTrait;
 
 
     /**
@@ -37,7 +38,6 @@ class WakaMailto extends Model
         'state' => 'required',
         'name' => 'required',
         'slug' => 'required|unique',
-        'data_source' => 'required',
     ];
 
     public $customMessages = [
@@ -81,6 +81,12 @@ class WakaMailto extends Model
         'updated_at',
     ];
 
+/**
+    * @var array Spécifié le type d'export à utiliser pour chaque champs
+    */
+    public $importExportConfig = [
+    ]; 
+
     /**
      * @var array Relations
      */
@@ -96,8 +102,14 @@ class WakaMailto extends Model
     ];
     public $belongsToMany = [
     ];        
-    public $morphTo = [];
+    public $morphTo = [
+    ];
     public $morphOne = [
+        'waka_session' => [
+            'Waka\Session\Models\WakaSession',
+            'name' => 'sessioneable',
+            'delete' => true
+        ],
     ];
     public $morphMany = [
         'rule_asks' => [

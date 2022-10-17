@@ -8,7 +8,7 @@ waka_session:
         form: $/waka/session/models/wakasession/fields.yaml
     view:
         form: $/waka/session/models/wakasession/fields.yaml
-        toolbarButtons: false
+        toolbarButtons: update|delete
         showCheckboxes: false
         defaultSort:
             column: name

@@ -55,13 +55,6 @@ action_bar:
             duplicate:
                 config: waka.utils::btns.duplicate
                 group: waka.utils::lang.prod.tools
-            mail:
-                config: waka.mailer::btns.mail
-                group: waka.utils::lang.prod.send
-
-    # partials: #Attention seul les variables modelId et modelClass (class du controller) sont disponible sans les partials.  
-    #     name:
-    #         url: $/waka/mailtoer/controllers/wakamailtos/_test_update.htm
 
 
 

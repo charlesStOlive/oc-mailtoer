@@ -4,32 +4,33 @@ use ApplicationException;
 use Event;
 use Waka\Mailtoer\Models\WakaMailto;
 use Waka\Utils\Classes\DataSource;
+use Waka\Utils\Classes\ProductorCreator;
 
-class MailtoCreator extends \Winter\Storm\Extension\Extendable
+class MailtoCreator extends ProductorCreator
 {
-
-    public static $productor;
-    public $ds;
-    public $modelId;
-    private $isTwigStarted;
     public $manualData = [];
-    public $implement = [];
-    public $askResponse = [];
 
-    public static function find($mail_id, $slug = false)
+    
+
+     public static function find($mail_id, $slug = false)
     {
-        $productor;
+        $productorModel = null;
         if ($slug) {
-            $productor = WakaMailto::where('slug', $mail_id)->first();
-            if (!$productor) {
-                throw new ApplicationException("Le code email ne fonctionne pas : " . $mail_id);
-            }
+            $productorModel = WakaMailto::where('slug', $mail_id)->first();
         } else {
-            $productor = WakaMailto::find($mail_id);
+            $productorModel = WakaMailto::find($mail_id);
         }
-        self::$productor = $productor;
+        if (!$productorModel) {
+            /**/trace_log("Le code ou id  email ne fonctionne pas : " . $mail_id. "vous dever entrer l'id ou le code suivi de true");
+            throw new ApplicationException("Le code ou id  email ne fonctionne pas : " . $mail_id. "vous dever entrer l'id ou le code suivi de true");
+        }
+        
+        self::$productor = $productorModel;
         return new self;
     }
+
+
+
 
     public function setManualData($data) {
         $this->manualData = array_merge($this->manualData, $data);
@@ -38,7 +39,7 @@ class MailtoCreator extends \Winter\Storm\Extension\Extendable
 
     public function prepare()
     {
-        if ((!self::$ds || !$this->modelId)) {
+        if ((!$this->productorDs || !$this->modelId)) {
             throw new \ApplicationException("Le modelId n a pas ete instancié et il n' y a pas de données manuel");
         }
         $model = $this->getProductorVars();
@@ -59,7 +60,7 @@ class MailtoCreator extends \Winter\Storm\Extension\Extendable
         $content = html_entity_decode($this->prepare());
         $body = rawurlencode($content);
         $subject = rawurlencode($this->getProductor()->subject);
-        $to = self::$ds->getContact('to')[0];
+        $to = $this->productorDs->getContact('to')[0];
         //trace_log($to);
         $obj = [
             'to' => $to,

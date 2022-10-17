@@ -17,10 +17,9 @@ fields:
 tabs:
     defaultTab: waka.mailtoer::wakaMailto.tab_edit
     icons: 
-        waka.mailtoer::wakaMailto.tab_info: icon-info-circle
-        waka.mailtoer::wakaMailto.tab_edit: icon-pencil
-        waka.mailtoer::wakaMailto.tab_options: icon-cog
-        waka.lp::lang.source_log.tab_lp: icon-file
+        waka.mailtoer::wakamailto.tab_info: icon-info-circle
+        waka.mailtoer::wakamailto.tab_edit: icon-pencil
+        waka.mailtoer::wakamailto.tab_options: icon-cog
     fields:    
         render_mode_html:
             label: waka.mailtoer::wakamailto.render_mode_html
@@ -41,17 +40,21 @@ tabs:
         rule_asks:
             label: waka.mailtoer::wakamailto.rule_asks
             span: full
-            type: askbuilder
+            type: rulebuilder
             targetProductor: wakaMailto
             full_access: waka.rules.asks.admin
+            ruleMode: ask
+            showAttributes: true
             permissions: [waka.rules.asks.*]
             tab: waka.mailtoer::wakamailto.tab_edit
         rule_fncs:
             label: waka.mailtoer::wakamailto.rule_fncs
             span: full
-            type: fncbuilder
+            type: rulebuilder
             targetProductor: wakaMailto
             full_access: waka.rules.fncs.admin
+            ruleMode: ask
+            showAttributes: true
             permissions: [waka.rules.fncs.*]
             tab: waka.mailtoer::wakamailto.tab_edit
         rule_conditions:

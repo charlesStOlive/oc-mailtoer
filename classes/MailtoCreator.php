@@ -71,9 +71,4 @@ class MailtoCreator extends ProductorCreator
 
         return $obj;
     }
-
-    public function getModelEmails()
-    {
-        return self::$ds->getContact('to', null);
-    }
 }
